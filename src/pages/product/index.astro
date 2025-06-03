@@ -251,354 +251,132 @@ const structuredData = {
     opacity: 0;
   }
 
-/* Enhanced Responsive Hero Banner */
-.hero-banner {
-  background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
-  position: relative;
-  overflow: hidden;
-  width: 100vw;
-  margin-left: calc(50% - 50vw);
-  display: flex;
-  align-items: center;
-  /* Responsive height using viewport units */
-  min-height: 60vh; /* Mobile: 60% of viewport height */
-}
-
-/* Tablet landscape and up */
-@media (min-width: 768px) {
+  /* Fixed Hero Banner - Full Width with No White Space */
   .hero-banner {
-    min-height: 70vh; /* Tablet: 70% of viewport height */
+    background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+    position: relative;
+    overflow: hidden;
+    min-height: 500px;
+    display: flex;
+    align-items: center;
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
   }
-}
 
-/* Desktop */
-@media (min-width: 1024px) {
-  .hero-banner {
-    min-height: 80vh; /* Desktop: 80% of viewport height */
-  }
-}
-
-/* Large desktop */
-@media (min-width: 1440px) {
-  .hero-banner {
-    min-height: 600px; /* Cap maximum height */
-  }
-}
-
-/* Enhanced Background Image with better responsiveness */
-.hero-banner::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-image: url('https://images.unsplash.com/photo-1557804506-669a67965ba0?w=1920&h=1080&fit=crop');
-  background-size: cover;
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-attachment: fixed; /* Parallax effect on desktop */
-  opacity: 0.15;
-  animation: float 6s ease-in-out infinite;
-  transform: scale(1.1); /* Slight zoom to prevent edge gaps */
-}
-
-/* Disable parallax on mobile for better performance */
-@media (max-width: 768px) {
   .hero-banner::before {
-    background-attachment: scroll;
-    opacity: 0.12; /* Slightly reduced for mobile readability */
-    transform: scale(1.05);
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('https://images.unsplash.com/photo-1557804506-669a67965ba0?w=1920&h=1080&fit=crop') center/cover;
+    opacity: 0.15;
+    animation: float 6s ease-in-out infinite;
   }
-}
 
-/* Responsive Grid Container */
-.hero-banner .hero-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 2rem;
-  align-items: center;
-  padding: 2rem 0;
-  width: 100%;
-  max-width: 1280px;
-  margin: 0 auto;
-  position: relative;
-  z-index: 10;
-}
-
-/* Tablet and up - two columns */
-@media (min-width: 1024px) {
-  .hero-banner .hero-grid {
-    grid-template-columns: 1fr 1fr;
-    gap: 3rem;
-    padding: 4rem 0;
+  /* Enhanced Card Animations */
+  .category-card {
+    background: #ffffff;
+    border-radius: 12px;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.08);
   }
-}
 
-/* Hero Content Responsive Typography */
-.hero-content h1 {
-  font-size: clamp(2rem, 5vw, 4rem); /* Fluid typography */
-  font-weight: 700;
-  line-height: 1.1;
-  margin-bottom: 1rem;
-  color: white;
-}
-
-.hero-content .highlight {
-  color: #60a5fa;
-  display: inline-block;
-  animation: glow 2s ease-in-out infinite alternate;
-}
-
-.hero-content p {
-  font-size: clamp(1rem, 2.5vw, 1.25rem);
-  line-height: 1.6;
-  color: #cbd5e1;
-  margin-bottom: 2rem;
-  max-width: 90%;
-}
-
-@media (min-width: 768px) {
-  .hero-content p {
-    max-width: 85%;
+  .category-card:hover {
+    transform: translateY(-12px) scale(1.02);
+    box-shadow: 0 30px 60px -12px rgba(59, 130, 246, 0.4);
+    border-color: rgba(59, 130, 246, 0.5);
+    animation: glow 2s ease-in-out infinite;
   }
-}
 
-@media (min-width: 1024px) {
-  .hero-content p {
-    max-width: 80%;
+  .category-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #3b82f6, #1d4ed8, #3b82f6);
+    background-size: 200% 100%;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.6s ease;
   }
-}
 
-/* Responsive Button Container */
-.hero-buttons {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  margin-bottom: 2rem;
-}
-
-@media (min-width: 640px) {
-  .hero-buttons {
-    flex-direction: row;
-    gap: 1rem;
+  .category-card:hover::before {
+    transform: scaleX(1);
+    animation: shimmer 2s ease-in-out infinite;
   }
-}
 
-/* Enhanced Responsive Stats Grid */
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
-  margin-top: 2rem;
-}
+  .image-container {
+    position: relative;
+    overflow: hidden;
+    background: #f8fafc;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+  }
 
-@media (min-width: 640px) {
+  .image-container img {
+  max-height: 100%;
+  max-width: 100%;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+  .icon-badge {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+
+  .category-card:hover .icon-badge {
+    transform: scale(1.2) rotate(10deg);
+    background: #3b82f6;
+    animation: bounce 1s ease-in-out infinite;
+  }
+
+  .category-card:hover .icon-badge svg {
+    color: white;
+  }
+
   .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
     gap: 1.5rem;
-    max-width: 500px;
-  }
-}
-
-@media (min-width: 1024px) {
-  .stats-grid {
     max-width: 600px;
   }
-}
 
-.stat-item {
-  text-align: center;
-  padding: 1rem 0.5rem;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(10px);
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-.stat-item:hover {
-  background: rgba(255, 255, 255, 0.2);
-  transform: translateY(-4px) scale(1.02);
-}
-
-.stat-number {
-  font-size: clamp(1.25rem, 3vw, 1.75rem);
-  font-weight: 700;
-  color: #60a5fa;
-  margin-bottom: 0.5rem;
-  display: block;
-}
-
-.stat-label {
-  font-size: clamp(0.75rem, 2vw, 0.875rem);
-  color: #cbd5e1;
-  line-height: 1.4;
-}
-
-/* Enhanced Hero Image - Only visible on desktop */
-.hero-image {
-  display: none;
-  opacity: 0;
-  animation: slideInRight 1s ease-out forwards;
-  animation-delay: 0.3s;
-}
-
-@media (min-width: 1024px) {
-  .hero-image {
-    display: block;
-  }
-}
-
-.hero-image-container {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  min-height: 400px;
-  overflow: hidden;
-  border-radius: 16px;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
-  border: 2px solid rgba(255, 255, 255, 0.1);
-  animation: float 3s ease-in-out infinite;
-}
-
-@media (min-width: 1280px) {
-  .hero-image-container {
-    min-height: 450px;
-  }
-}
-
-.hero-main-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-  transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  filter: brightness(1.1) contrast(1.1);
-}
-
-.hero-image:hover .hero-main-image {
-  transform: scale(1.05);
-  filter: brightness(1.2) contrast(1.2) saturate(1.1);
-}
-
-.professional-badge {
-  position: absolute;
-  bottom: -8px;
-  right: -8px;
-  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
-  color: white;
-  padding: 8px 16px;
-  border-radius: 8px;
-  font-weight: 700;
-  font-size: clamp(0.75rem, 1.5vw, 0.875rem);
-  box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
-  border: 2px solid rgba(255, 255, 255, 0.2);
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-.hero-image:hover .professional-badge {
-  transform: translateY(-4px) scale(1.05);
-  box-shadow: 0 12px 35px rgba(59, 130, 246, 0.6);
-}
-
-/* Enhanced Button Styles */
-.animated-button {
-  position: relative;
-  overflow: hidden;
-  padding: 0.75rem 2rem;
-  border-radius: 8px;
-  font-weight: 600;
-  font-size: clamp(0.875rem, 2vw, 1rem);
-  text-align: center;
-  transition: all 0.3s ease;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  min-width: 160px;
-}
-
-@media (min-width: 640px) {
-  .animated-button {
-    min-width: 180px;
-  }
-}
-
-.animated-button::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-  transition: left 0.6s ease;
-}
-
-.animated-button:hover::before {
-  left: 100%;
-}
-
-.animated-button:hover {
-  transform: translateY(-2px) scale(1.02);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-}
-
-/* Responsive Padding for Container */
-.hero-container {
-  padding: 0 1rem;
-}
-
-@media (min-width: 640px) {
-  .hero-container {
-    padding: 0 1.5rem;
-  }
-}
-
-@media (min-width: 1280px) {
-  .hero-container {
-    padding: 0 2rem;
-  }
-}
-
-/* Animation Performance Optimizations */
-@media (prefers-reduced-motion: reduce) {
-  .hero-banner::before,
-  .hero-image-container,
-  .stat-item,
-  .animated-button {
-    animation: none;
-  }
-  
-  .hero-banner::before {
-    background-attachment: scroll;
-  }
-}
-
-/* Additional mobile optimizations */
-@media (max-width: 480px) {
-  .hero-banner {
-    min-height: 50vh; /* Even smaller on very small screens */
-  }
-  
-  .hero-content h1 {
-    margin-bottom: 0.75rem;
-  }
-  
-  .hero-content p {
-    margin-bottom: 1.5rem;
-    max-width: 95%;
-  }
-  
-  .stats-grid {
-    gap: 0.75rem;
-    margin-top: 1.5rem;
-  }
-  
   .stat-item {
-    padding: 0.75rem 0.25rem;
+    text-align: center;
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    backdrop-filter: blur(10px);
   }
-}
+
+  .stat-item:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-8px) scale(1.05);
+    animation: float 2s ease-in-out infinite;
+  }
+
   .product-image {
     width: 100%;
     height: 100%;
@@ -766,56 +544,59 @@ const structuredData = {
   canonical={canonicalURL}
  >
   <!-- Enhanced Hero Banner Section - True Full Width -->
-  <!-- Enhanced Responsive Hero Banner Section -->
-<section class="hero-banner">
-  <div class="hero-container">
-    <div class="hero-grid">
+<section class="relative w-screen overflow-hidden flex items-center min-h-[60vh] bg-gradient-to-br from-gray-800 to-gray-700 ml-[calc(50%-50vw)] md:min-h-[70vh] lg:min-h-[80vh] xl:min-h-[600px]">
+  <!-- Background image with parallax effect -->
+  <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1557804506-669a67965ba0?w=1920&h=1080&fit=crop')] bg-cover bg-center bg-no-repeat bg-fixed opacity-15 scale-110 motion-safe:animate-[float_6s_ease-in-out_infinite] md:opacity-12 md:scale-105 md:bg-scroll"></div>
+  
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 gap-8 items-center py-8 relative z-10 md:gap-12 lg:grid-cols-2 lg:py-16">
       <!-- Hero Content -->
       <div class="hero-content">
-        <h1>
-          Ezviz <span class="highlight">Dubai</span>
+        <h1 class="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight mb-4 text-white">
+          Ezviz <span class="text-blue-400 inline-block motion-safe:animate-[glow_2s_ease-in-out_infinite_alternate]">Dubai</span>
         </h1>
-        <p class="animate-on-scroll">
+        <p class="text-base md:text-lg lg:text-xl text-gray-300 mb-8 max-w-[90%] md:max-w-[85%] lg:max-w-[80%] leading-relaxed">
           Professional-grade wireless surveillance systems with advanced AI detection, 4K resolution, and enterprise-level security features.
         </p>
         
         <!-- Responsive Buttons -->
-        <div class="hero-buttons">
-          <a href="/contact" class="animated-button bg-blue-600 hover:bg-blue-700 text-white shadow-lg hover:shadow-xl">
+        <div class="flex flex-col space-y-3 mb-8 sm:flex-row sm:space-y-0 sm:space-x-4">
+          <a href="/contact" class="relative overflow-hidden px-8 py-3 rounded-lg font-semibold text-white bg-blue-600 hover:bg-blue-700 shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2 min-w-[160px] sm:min-w-[180px] hover:-translate-y-0.5 hover:scale-[1.02]">
             Contact Us
             <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
             </svg>
+            <span class="absolute top-0 -left-full w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent transition-all duration-600 group-hover:left-full"></span>
           </a>
         </div>
 
-        <!-- Enhanced Responsive Stats Section -->
-        <div class="stats-grid">
-          <div class="stat-item floating-element">
-            <span class="stat-number">99.9%</span>
-            <span class="stat-label">Uptime Reliability</span>
+        <!-- Stats Section -->
+        <div class="grid grid-cols-3 gap-3 mt-8 sm:gap-6 sm:max-w-[500px] lg:max-w-[600px]">
+          <div class="text-center py-4 px-2 bg-white/10 rounded-xl border border-white/20 backdrop-blur-md transition-all duration-400 hover:bg-white/20 hover:-translate-y-1 hover:scale-[1.02]">
+            <span class="block text-xl sm:text-2xl font-bold text-blue-400 mb-2">99.9%</span>
+            <span class="text-xs sm:text-sm text-gray-300 leading-tight">Uptime Reliability</span>
           </div>
-          <div class="stat-item floating-element">
-            <span class="stat-number">24/7</span>
-            <span class="stat-label">Monitoring Support</span>
+          <div class="text-center py-4 px-2 bg-white/10 rounded-xl border border-white/20 backdrop-blur-md transition-all duration-400 hover:bg-white/20 hover:-translate-y-1 hover:scale-[1.02]">
+            <span class="block text-xl sm:text-2xl font-bold text-blue-400 mb-2">24/7</span>
+            <span class="text-xs sm:text-sm text-gray-300 leading-tight">Monitoring Support</span>
           </div>
-          <div class="stat-item floating-element">
-            <span class="stat-number">256-bit</span>
-            <span class="stat-label">Encryption Security</span>
+          <div class="text-center py-4 px-2 bg-white/10 rounded-xl border border-white/20 backdrop-blur-md transition-all duration-400 hover:bg-white/20 hover:-translate-y-1 hover:scale-[1.02]">
+            <span class="block text-xl sm:text-2xl font-bold text-blue-400 mb-2">256-bit</span>
+            <span class="text-xs sm:text-sm text-gray-300 leading-tight">Encryption Security</span>
           </div>
         </div>
       </div>
       
       <!-- Hero Image - Desktop Only -->
-      <div class="hero-image">
-        <div class="hero-image-container">
+      <div class="hidden lg:block opacity-0 motion-safe:animate-[slideInRight_1s_ease-out_forwards] motion-reduce:opacity-100">
+        <div class="relative w-full h-full min-h-[400px] overflow-hidden rounded-2xl shadow-[0_25px_50px_-12px_rgba(0,0,0,0.4)] border-2 border-white/10 motion-safe:animate-[float_3s_ease-in-out_infinite] xl:min-h-[450px]">
           <img 
             src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=600&fit=crop" 
             alt="Professional Security Camera"
-            class="hero-main-image"
+            class="w-full h-full object-cover object-center transition-all duration-800 brightness-110 contrast-110 hover:scale-105 hover:brightness-120 hover:contrast-120 hover:saturate-110"
             loading="lazy"
           />
-          <div class="professional-badge">
+          <div class="absolute bottom-5 right-5 bg-gradient-to-br from-blue-500 to-blue-700 text-white px-4 py-2 rounded-lg font-bold text-sm shadow-[0_8px_25px_rgba(59,130,246,0.4)] border-2 border-white/20 transition-all duration-400 z-20 hover:-translate-y-1 hover:scale-[1.05] hover:shadow-[0_12px_35px_rgba(59,130,246,0.6)]">
             Professional Grade
           </div>
         </div>
@@ -823,6 +604,7 @@ const structuredData = {
     </div>
   </div>
 </section>
+
   <!-- Enhanced Categories Section -->
   <section class="py-20 bg-gray-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
