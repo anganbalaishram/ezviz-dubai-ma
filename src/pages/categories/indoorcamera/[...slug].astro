@@ -1,0 +1,854 @@
+---
+// src/pages/wire-free/[slug].astro
+import Layout from "./../../../layouts/Layout.astro";
+import { getCollection } from 'astro:content';
+import "./../../../styles/global.css";
+import Whatsapp from "./../../../components/Whatsapp";;
+type Props = {
+    product: Product;
+};
+
+interface ProductImage {
+    url: string;
+    caption?: string;
+    type?: string;
+}
+
+interface ProductSpecifications {
+    sensor?: string;
+    resolution?: string;
+    focalLength?: string;
+    irRange?: string;
+    powerSupply?: string;
+    protection?: string;
+    storage?: string;
+    dimensions?: string;
+    batteryLife?: string;
+    wirelessRange?: string;
+}
+
+interface Product {
+    title: string;
+    description: string;
+    image: string;
+    images?: ProductImage[];
+    features: string[];
+    price?: number;
+    specification: ProductSpecifications;
+    rating?: number;
+    reviewCount?: number;
+}
+
+export async function getStaticPaths() {
+    const products = await getCollection("indoor-wifi");
+    return products.map((entry) => ({
+        params: { slug: entry.slug },
+        props: { product: entry.data as unknown as Product },
+    }));
+}
+
+const { product } = Astro.props as Props;
+const title = `${product.title} | Indoor Wi-Fi Cameras`;
+const description = product.description;
+const images = product.images || (product.image ? [{ url: product.image }] : []);
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+
+function formatPrice(price) {
+  const num = Number(price);
+  if (isNaN(num) || num < 0) return "0.00";
+  return num.toFixed(2);
+}
+const structuredData = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": product.title,
+    "description": product.description,
+    "image": product.image.startsWith('http') ? product.image : `https://ezviz-dubai.com/images/${product.slug}.png`,
+    "productType": "Indoor Wi-Fi Cameras",
+    "offers": {
+      "@type": "Offer",
+      "priceCurrency": "AED",
+      "price": formatPrice(product.price),
+      "availability": "https://schema.org/InStock",
+      "itemCondition": "https://schema.org/NewCondition",
+      "seller": {
+        "@type": "Organization",
+        "name": "Ezviv-Dubai"
+      },
+      "shippingDetails": {
+        "@type": "OfferShippingDetails",
+        "shippingRate": {
+          "@type": "MonetaryAmount",
+          "value": "0.00",
+          "currency": "AED"
+        },
+        "deliveryTime": {
+          "@type": "ShippingDeliveryTime",
+          "handlingTime": {
+            "@type": "QuantitativeValue",
+            "minValue": 1,
+            "maxValue": 2,
+            "unitCode": "DAY"
+          },
+          "transitTime": {
+            "@type": "QuantitativeValue",
+            "minValue": 1,
+            "maxValue": 3,
+            "unitCode": "DAY"
+          }
+        }
+      },
+      "hasMerchantReturnPolicy": {
+        "@type": "MerchantReturnPolicy",
+        "applicableCountry": "AE",
+        "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+        "merchantReturnDays": 30,
+        "returnMethod": "https://schema.org/ReturnByMail",
+        "returnFees": "https://schema.org/FreeReturn"
+      }
+    },
+    ...(product.rating && product.reviewCount ? {
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": product.rating.toString(),
+        "reviewCount": product.reviewCount.toString(),
+        "bestRating": "5",
+        "worstRating": "0"
+      }
+    } : {
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.5",
+        "reviewCount": "10",
+        "bestRating": "5",
+        "worstRating": "0"
+      }
+    })
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": new URL("/", Astro.site).toString()
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Wire-Free Cameras",
+        "item": new URL("/categories/indoorcamera", Astro.site).toString()
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": product.title,
+        "item": canonicalURL.toString()
+      }
+    ]
+  }
+];
+
+
+
+---
+<meta charset="UTF-8" />
+<style is:global>
+  /* Scroll Reveal Animations - Updated timing */
+  [data-scroll] {
+    opacity: 0;
+    will-change: transform, opacity;
+    transition: all 0.8s cubic-bezier(0.25, 0.1, 0.25, 1); /* Changed from 0.6s to 0.8s with smoother easing */
+  }
+
+  /* Delay classes - Increased delays for better sequencing */
+  [data-scroll-delay="100"] {
+    transition-delay: 0.15s;
+  }
+  [data-scroll-delay="200"] {
+    transition-delay: 0.3s;
+  }
+  [data-scroll-delay="300"] {
+    transition-delay: 0.45s;
+  }
+  [data-scroll-delay="400"] {
+    transition-delay: 0.6s;
+  }
+
+  /* Other transitions in the page */
+  * {
+    transition-duration: 0.3s; /* Increased from default */
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Specific elements that need smoother transitions */
+  .main-image {
+    transition: transform 0.5s ease-out; /* Slowed down image zoom */
+  }
+
+  .thumbnail-btn {
+    transition: all 0.3s ease; /* Smoother thumbnail transitions */
+  }
+
+  .contact-us-btn {
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* More natural button press */
+  }
+
+  .notification {
+    transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55); /* Bouncier notification */
+  }
+
+  /* Banner transition */
+  .promo-banner {
+    transition: transform 0.5s ease-out, opacity 0.5s ease-out;
+  }
+</style>
+
+<Layout   title={`${product.title} - Ezviz Dubai`}
+    structuredData={structuredData}
+    description={product.description}
+    canonical={canonicalURL.toString()}>
+  <!-- Schema.org markup -->
+  <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+
+  <!-- Subtle Promotional Banner -->
+  <div
+    class="promo-banner bg-gradient-to-r from-slate-800 to-slate-900 text-white py-2.5 relative"
+    data-scroll="fade-down"
+    data-scroll-delay="100"
+  >
+    <div class="max-w-7xl mx-auto px-4 text-center">
+      <div class="flex items-center justify-center space-x-3 text-sm">
+        <span class="text-amber-400">⚡</span>
+        <span class="font-medium"
+          >Limited Time: Free Installation + 30% Off All Wire-Free Cameras</span
+        >
+        <span class="text-red-400 font-semibold">Ends in 2 days!</span>
+      </div>
+    </div>
+    <button
+      class="banner-close absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-300 hover:text-white transition-colors"
+    >
+      <i class="fas fa-times text-sm"></i>
+    </button>
+  </div>
+
+  <!-- Main Product Section -->
+  <section class="bg-gray-50 py-8">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Breadcrumb Navigation -->
+      <nav 
+        class="breadcrumb-nav flex mb-6" 
+        aria-label="Breadcrumb"
+        data-scroll="fade"
+        data-scroll-delay="200"
+      >
+        <ol class="inline-flex items-center space-x-1 md:space-x-2">
+          <li class="inline-flex items-center">
+            <a
+              href="/"
+              class="breadcrumb-link inline-flex items-center text-sm text-gray-600 hover:text-blue-600 transition-colors"
+            >
+              <i class="fas fa-home mr-1.5 text-xs"></i>
+              Home
+            </a>
+          </li>
+          <li>
+            <div class="flex items-center">
+              <i class="fas fa-chevron-right text-gray-400 mx-1 text-xs"></i>
+              <a
+                href="/categories/indoorcamera"
+                class="breadcrumb-link text-sm text-gray-600 hover:text-blue-600 transition-colors"
+                >Indoor Wi-Fi Cameras</a
+              >
+            </div>
+          </li>
+          <li aria-current="page">
+            <div class="flex items-center">
+              <i class="fas fa-chevron-right text-gray-400 mx-1 text-xs"></i>
+              <span class="text-sm text-blue-500">{product.title}</span>
+            </div>
+          </li>
+        </ol>
+      </nav>
+
+      <!-- Product Grid -->
+      <div
+        class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden"
+      >
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-0">
+          <!-- Image Gallery -->
+          <div 
+            class="image-gallery p-6 bg-white"
+            data-scroll="fade-right"
+            data-scroll-delay="300"
+          >
+            <!-- Main Image Container - Professional Size -->
+            <div
+              class="main-image-container bg-gray-50 rounded-lg overflow-hidden relative group mb-4 flex items-center justify-center"
+              style="min-height: 320px;"
+            >
+              <div
+                class="image-loader absolute inset-0 bg-gray-200 animate-pulse hidden"
+              ></div>
+              <img
+                src={product.image}
+                alt={product.title}
+                class="main-image w-full max-w-[380px] h-80 object-contain transition-transform duration-500 group-hover:scale-110"
+                loading="eager"
+                onload="this.previousElementSibling.style.display='none'"
+                style="will-change: transform;"
+              />
+            </div>
+
+            <!-- Thumbnail Gallery -->
+            {
+              product.images && product.images.length > 0 && (
+                <div class="thumbnail-gallery grid grid-cols-4 gap-3">
+                  {product.images.map((img, index) => (
+                    <button
+                      class="thumbnail-btn bg-gray-50 rounded-md overflow-hidden border border-gray-200 hover:border-blue-300 transition-all duration-200 relative group"
+                      data-image={img.url}
+                      data-scroll="fade-up"
+                      data-scroll-delay={100 + (index * 50)}
+                    >
+                      <img
+                        src={img.url}
+                        alt={
+                          img.caption || `${product.title} - Image ${index + 1}`
+                        }
+                        class="w-full h-16 object-cover transition-transform duration-200 group-hover:scale-105"
+                      />
+                    </button>
+                  ))}
+                </div>
+              )
+            }
+          </div>
+
+          <!-- Product Details -->
+          <div 
+            class="product-details p-6 bg-white border-l border-gray-100"
+            data-scroll="fade-left"
+            data-scroll-delay="800"
+          >
+            <!-- Product Title -->
+            <h1
+              class="product-title text-2xl font-bold text-gray-900 mb-3 leading-tight"
+            >
+              {product.title}
+            </h1>
+
+            <!-- Description -->
+            <div
+              class="description mb-6 p-4 bg-gray-50 rounded-lg border-l-4 border-blue-500"
+            >
+              <p class="text-gray-700 leading-relaxed text-sm">
+                {product.description}
+              </p>
+            </div>
+
+            <!-- Key Features -->
+            <div class="features-section mb-6">
+              <h3
+                class="text-lg font-semibold mb-4 text-gray-900 flex items-center"
+              >
+                <i class="fas fa-star text-amber-500 mr-2"></i>
+                Key Features
+              </h3>
+              <ul class="space-y-3">
+                {
+                  product.features.map((feature, index) => (
+                    <li 
+                      class="feature-item flex items-start space-x-3 text-sm"
+                      data-scroll="fade-right"
+                      data-scroll-delay={100 + (index * 50)}
+                    >
+                      <i class="fas fa-check-circle text-green-500 text-base mt-0.5 flex-shrink-0" />
+                      <span class="text-gray-700">{feature}</span>
+                    </li>
+                  ))
+                }
+              </ul>
+            </div>
+
+            <!-- Action Buttons -->
+            <div 
+              class="action-section space-y-3 mb-6"
+              data-scroll="fade-up"
+              data-scroll-delay="200"
+            >
+              <!-- Primary CTA -->
+              <a
+                href="/contact"
+                class="contact-us-btn w-full bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold transition-all duration-200 transform hover:scale-[1.02] shadow-sm hover:shadow-md inline-flex items-center justify-center"
+              >
+                <i class="fas fa-phone mr-2"></i>
+                Contact Us for Pricing
+              </a>
+
+              <!-- Share Section -->
+              <div class="share-container pt-4 border-t border-gray-100">
+                <p class="mb-3 text-sm font-medium text-gray-600">Share:</p>
+                <div class="share-buttons flex space-x-2">
+                  <button
+                    class="share-btn bg-white hover:bg-green-50 border border-gray-200 hover:border-green-300 rounded-md p-2 transition-all duration-200"
+                    data-platform="whatsapp"
+                    aria-label="Share on WhatsApp"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="#25D366"
+                    >
+                      <path
+                        d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.57-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"
+                      ></path>
+                    </svg>
+                  </button>
+                  <button
+                    class="share-btn bg-white hover:bg-blue-50 border border-gray-200 hover:border-blue-300 rounded-md p-2 transition-all duration-200"
+                    data-platform="twitter"
+                    aria-label="Share on Twitter"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="#1DA1F2"
+                    >
+                      <path
+                        d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-1.093.648-2.302 1.12-3.594 1.372a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"
+                      ></path>
+                    </svg>
+                  </button>
+                  <button
+                    class="share-btn bg-white hover:bg-blue-50 border border-gray-200 hover:border-blue-300 rounded-md p-2 transition-all duration-200"
+                    data-platform="facebook"
+                    aria-label="Share on Facebook"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="#1877F2"
+                    >
+                      <path
+                        d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"
+                      ></path>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Specifications Section -->
+        <div 
+          class="specifications-section mt-8"
+          data-scroll="fade-up"
+          data-scroll-delay="100"
+        >
+          <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+            <h2
+              class="section-title text-xl font-semibold mb-4 text-gray-900 flex items-center"
+            >
+              <i class="fas fa-cog text-blue-600 mr-2"></i>
+              Technical Specifications
+            </h2>
+
+            <div class="specs-container">
+              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {
+                  Object.entries(product.specification)
+                    .slice(0, 6)
+                    .map(([key, value], index) => (
+                      <div 
+                        class="spec-item bg-gray-50 p-3 rounded-lg border border-gray-100"
+                        data-scroll="fade-up"
+                        data-scroll-delay={100 + (index * 50)}
+                      >
+                        <dt class="spec-label text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1">
+                          {key.replace(/_/g, " ")}
+                        </dt>
+                        <dd class="spec-value text-sm font-medium text-gray-900">
+                          {value}
+                        </dd>
+                      </div>
+                    ))
+                }
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Success Notification -->
+    <div
+      id="notification"
+      class="notification fixed top-4 right-4 bg-green-600 text-white px-4 py-2 rounded-lg shadow-lg transform translate-x-full opacity-0 transition-all duration-300 z-50"
+    >
+      <div class="flex items-center space-x-2">
+        <i class="fas fa-check-circle"></i>
+        <span id="notification-text" class="text-sm">Shared successfully!</span>
+      </div>
+    </div>
+
+    <style is:global>
+      /* Professional Styling */
+      .main-image {
+        max-height: 320px; /* Fixed professional height */
+      }
+
+      .thumbnail-btn.active {
+        border-color: #3b82f6;
+        box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+      }
+
+      .contact-us-btn:active {
+        transform: scale(0.98);
+      }
+
+      .share-btn:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .notification.show {
+        transform: translateX(0);
+        opacity: 1;
+      }
+
+      /* Scroll Reveal Animations */
+      [data-scroll] {
+        opacity: 0;
+        will-change: transform, opacity;
+        transition: all 0.6s cubic-bezier(0.5, 0, 0, 1);
+      }
+
+      [data-scroll="fade"] {
+        transform: translateY(20px);
+      }
+
+      [data-scroll="fade-up"] {
+        transform: translateY(40px);
+      }
+
+      [data-scroll="fade-down"] {
+        transform: translateY(-40px);
+      }
+
+      [data-scroll="fade-left"] {
+        transform: translateX(40px);
+      }
+
+      [data-scroll="fade-right"] {
+        transform: translateX(-40px);
+      }
+
+      [data-scroll].is-visible {
+        opacity: 1;
+        transform: translate(0) !important;
+      }
+
+      /* Delay classes */
+      [data-scroll-delay="100"] {
+        transition-delay: 0.1s;
+      }
+      [data-scroll-delay="200"] {
+        transition-delay: 0.2s;
+      }
+      [data-scroll-delay="300"] {
+        transition-delay: 0.3s;
+      }
+      [data-scroll-delay="400"] {
+        transition-delay: 0.4s;
+      }
+
+      /* Responsive adjustments */
+      @media (max-width: 768px) {
+        .main-image {
+          height: 240px;
+        }
+
+        .grid-cols-3 {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .trust-section .flex {
+          flex-direction: column;
+          space-y: 4;
+        }
+
+        .trust-section .space-x-8 > * + * {
+          margin-left: 0;
+          margin-top: 1rem;
+        }
+      }
+
+      /* Smooth transitions for professional feel */
+      * {
+        transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      /* Remove excessive animations for professional look */
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+        }
+      }
+    </style>
+
+    <script is:inline>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Banner functionality
+        const bannerClose = document.querySelector(".banner-close");
+        const promoBanner = document.querySelector(".promo-banner");
+
+        if (bannerClose && promoBanner) {
+          bannerClose.addEventListener("click", function () {
+            promoBanner.style.transform = "translateY(-100%)";
+            promoBanner.style.opacity = "0";
+            setTimeout(() => (promoBanner.style.display = "none"), 300);
+          });
+        }
+
+        // Image gallery functionality
+        const thumbnails = document.querySelectorAll(".thumbnail-btn");
+        const mainImage = document.querySelector(".main-image");
+        const imageLoader = document.querySelector(".image-loader");
+
+        thumbnails.forEach((thumb) => {
+          thumb.addEventListener("click", function (e) {
+            e.preventDefault();
+
+            // Show loading
+            if (imageLoader) {
+              imageLoader.style.display = "block";
+            }
+
+            // Remove active class from all thumbnails
+            thumbnails.forEach((t) => t.classList.remove("active"));
+
+            // Add active class to clicked thumbnail
+            this.classList.add("active");
+
+            // Get new image URL
+            const newImageUrl = this.dataset.image;
+
+            if (newImageUrl && mainImage) {
+              // Update main image
+              mainImage.style.opacity = "0.7";
+
+              const newImg = new Image();
+              newImg.onload = function () {
+                mainImage.src = newImageUrl;
+                mainImage.style.opacity = "1";
+
+                if (imageLoader) {
+                  imageLoader.style.display = "none";
+                }
+              };
+              newImg.src = newImageUrl;
+            }
+          });
+        });
+
+        // Share functionality
+        const shareButtons = document.querySelectorAll(".share-btn");
+        const pageUrl = encodeURIComponent(window.location.href);
+        const pageTitle = encodeURIComponent(document.title);
+
+        function showNotification(message) {
+          const notification = document.getElementById("notification");
+          const notificationText = document.getElementById("notification-text");
+
+          if (notification && notificationText) {
+            notificationText.textContent = message;
+            notification.classList.add("show");
+
+            setTimeout(() => {
+              notification.classList.remove("show");
+            }, 3000);
+          }
+        }
+
+        function shareContent(platform) {
+          let shareUrl = "";
+
+          switch (platform) {
+            case "whatsapp":
+              const message = `Check out this security camera: ${decodeURIComponent(pageTitle)} ${decodeURIComponent(pageUrl)}`;
+              shareUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
+              break;
+            case "twitter":
+              shareUrl = `https://twitter.com/intent/tweet?text=${pageTitle}&url=${pageUrl}`;
+              break;
+            case "facebook":
+              shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${pageUrl}`;
+              break;
+            default:
+              return;
+          }
+
+          if (shareUrl) {
+            window.open(shareUrl, "_blank", "width=600,height=400");
+            showNotification(
+              `Shared on ${platform.charAt(0).toUpperCase() + platform.slice(1)}!`
+            );
+          }
+        }
+
+        shareButtons.forEach((btn) => {
+          btn.addEventListener("click", (e) => {
+            e.preventDefault();
+            const platform = btn.dataset.platform;
+            if (platform) {
+              shareContent(platform);
+            }
+          });
+        });
+
+        // Button functionality
+        const contactBtn = document.querySelector(".contact-us-btn");
+        if (contactBtn) {
+          contactBtn.addEventListener("click", function () {
+            showNotification("Redirecting to contact page...");
+          });
+        }
+
+        const wishlistBtn = document.querySelector(".wishlist-btn");
+        if (wishlistBtn) {
+          wishlistBtn.addEventListener("click", function () {
+            const icon = this.querySelector("i");
+
+            if (icon.classList.contains("far")) {
+              icon.classList.remove("far");
+              icon.classList.add("fas");
+              icon.style.color = "#EF4444";
+              showNotification("Added to wishlist!");
+            } else {
+              icon.classList.remove("fas");
+              icon.classList.add("far");
+              icon.style.color = "";
+              showNotification("Removed from wishlist!");
+            }
+          });
+        }
+
+        const compareBtn = document.querySelector(".compare-btn");
+        if (compareBtn) {
+          compareBtn.addEventListener("click", function () {
+            showNotification("Added to comparison list!");
+          });
+        }
+
+        // Specifications toggle
+        const viewAllSpecsBtn = document.querySelector(".view-all-specs");
+        if (viewAllSpecsBtn) {
+          viewAllSpecsBtn.addEventListener("click", function () {
+            const specsContainer = document.querySelector(
+              ".specs-container .grid"
+            );
+            const allSpecs = specsContainer.querySelectorAll(".spec-item");
+            const icon = this.querySelector("i");
+
+            if (allSpecs.length > 6) {
+              const hiddenSpecs = Array.from(allSpecs).slice(6);
+
+              if (hiddenSpecs[0].style.display === "none") {
+                hiddenSpecs.forEach((spec) => {
+                  spec.style.display = "block";
+                });
+                this.innerHTML =
+                  'Show Less <i class="fas fa-chevron-up ml-1"></i>';
+              } else {
+                hiddenSpecs.forEach((spec) => {
+                  spec.style.display = "none";
+                });
+                this.innerHTML =
+                  'View All Specifications <i class="fas fa-chevron-down ml-1"></i>';
+              }
+            }
+          });
+
+          // Initially hide extra specs
+          const specsContainer = document.querySelector(
+            ".specs-container .grid"
+          );
+          if (specsContainer) {
+            const allSpecs = specsContainer.querySelectorAll(".spec-item");
+            if (allSpecs.length > 6) {
+              for (let i = 6; i < allSpecs.length; i++) {
+                allSpecs[i].style.display = "none";
+              }
+            }
+          }
+        }
+
+        // Scroll Reveal Animation
+        function initScrollReveal() {
+          const scrollElements = document.querySelectorAll('[data-scroll]');
+          
+          if (scrollElements.length > 0) {
+            const observer = new IntersectionObserver(
+              (entries) => {
+                entries.forEach((entry) => {
+                  if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target);
+                  }
+                });
+              },
+              {
+                threshold: 0.15, // Trigger when 15% of element is visible
+              }
+            );
+
+            scrollElements.forEach((el) => observer.observe(el));
+          }
+        }
+
+        // Initialize scroll reveal
+        initScrollReveal();
+
+        console.log("Professional camera page initialized");
+      });
+      // Scroll Reveal Animation - Updated with smoother settings
+      function initScrollReveal() {
+        const scrollElements = document.querySelectorAll('[data-scroll]');
+        
+        if (scrollElements.length > 0) {
+          const observer = new IntersectionObserver(
+            (entries) => {
+              entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                  entry.target.classList.add('is-visible');
+                  observer.unobserve(entry.target);
+                }
+              });
+            },
+            {
+              threshold: 0.1, // Lower threshold (10% visible) for earlier trigger
+              rootMargin: '0px 0px -50px 0px' // Adds a 50px bottom margin to trigger slightly earlier
+            }
+          );
+
+          scrollElements.forEach((el) => observer.observe(el));
+        }
+      }
+    </script>
+     <Whatsapp client:load />
+  </section>
+</Layout>

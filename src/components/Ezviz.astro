@@ -1,0 +1,290 @@
+<main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 mt-6" id="ezviz-section">
+  <div class="flex flex-col lg:flex-row gap-8 lg:gap-12 items-center min-h-[60vh]">
+    <!-- Left Content Column -->
+    <div class="w-full lg:w-1/2 order-2 lg:order-1">
+      <!-- Header Section -->
+      <div class="animation-element text-center lg:text-left mb-8" data-animation="slideInLeft" data-delay="0">
+        <p class="text-blue-500 text-lg sm:text-xl font-medium tracking-wider mb-4 sm:mb-6">
+          <span class="mr-2">O U R</span> E Z V I Z
+        </p>
+        
+        <h1 class="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-gray-800 mb-6 leading-tight">
+          ELEVATE YOUR SECURITY WITH EZVIZ
+        </h1>
+      </div>
+      
+      <!-- Feature Cards -->
+      <div class="space-y-6">
+        <!-- Card 1 -->
+        <div class="animation-element bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-all duration-300" 
+             data-animation="fadeInUp" data-delay="200">
+          <h2 class="text-lg sm:text-xl font-semibold text-gray-800 mb-3 flex items-center">
+            <span class="w-2 h-2 bg-blue-500 rounded-full mr-3 flex-shrink-0"></span>
+            Advanced Security Solutions
+          </h2>
+          <p class="text-gray-600 leading-relaxed text-sm sm:text-base">
+            At Ezviz Dubai, we provide top-tier EZVIZ security solutions tailored
+            for both residential and commercial needs in Dubai. Discover our range
+            of advanced cameras and systems, expertly designed to safeguard your
+            property with precision and reliability.
+          </p>
+        </div>
+        
+        <!-- Card 2 -->
+        <div class="animation-element bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-all duration-300" 
+             data-animation="fadeInUp" data-delay="400">
+          <h2 class="text-lg sm:text-xl font-semibold text-gray-800 mb-3 flex items-center">
+            <span class="w-2 h-2 bg-green-500 rounded-full mr-3 flex-shrink-0"></span>
+            Custom Security Tailored for You
+          </h2>
+          <p class="text-gray-600 leading-relaxed text-sm sm:text-base">
+            Our expert team is prepared to address your specific security needs by
+            offering customized EZVIZ solutions, ranging from smart home setups to
+            advanced business surveillance systems.
+          </p>
+        </div>
+        
+        <!-- Card 3 -->
+        <div class="animation-element bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-all duration-300" 
+             data-animation="fadeInUp" data-delay="600">
+          <h2 class="text-lg sm:text-xl font-semibold text-gray-800 mb-3 flex items-center">
+            <span class="w-2 h-2 bg-purple-500 rounded-full mr-3 flex-shrink-0"></span>
+            Expert Installation & Support
+          </h2>
+          <p class="text-gray-600 leading-relaxed text-sm sm:text-base">
+            Trust Ezviz Dubai for professional installation and reliable support,
+            delivering smooth operation and robust security solutions.
+          </p>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Right Image Column -->
+    <div class="w-full lg:w-1/2 order-1 lg:order-2">
+      <div class="animation-element" data-animation="slideInRight" data-delay="300">
+        <div class="relative rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 group">
+          <img
+            src="/images/Ezvismallbanner.png"
+            alt="EZVIZ Security Solutions"
+            class="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105"
+            loading="lazy"
+            decoding="async"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<style>
+  /* Core Animation Keyframes */
+  @keyframes slideInLeft {
+    0% {
+      transform: translateX(-30px);
+      opacity: 0;
+    }
+    100% {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+  
+  @keyframes slideInRight {
+    0% {
+      transform: translateX(30px);
+      opacity: 0;
+    }
+    100% {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+  
+  @keyframes fadeInUp {
+    0% {
+      transform: translateY(20px);
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  
+  @keyframes scaleIn {
+    0% {
+      transform: scale(0.95);
+      opacity: 0;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+  
+  /* Animation Classes */
+  .animate-slideInLeft {
+    animation: slideInLeft 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+  
+  .animate-slideInRight {
+    animation: slideInRight 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+  
+  .animate-fadeInUp {
+    animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+  
+  .animate-scaleIn {
+    animation: scaleIn 0.7s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+  
+  /* Initial State */
+  .animation-element {
+    opacity: 0;
+    will-change: transform, opacity;
+  }
+  
+  .animation-element.animate-triggered {
+    opacity: 1;
+  }
+  
+  /* Mobile Optimizations */
+  @media (max-width: 768px) {
+    /* Reduce animation distance on mobile */
+    @keyframes slideInLeft {
+      0% {
+        transform: translateX(-15px);
+        opacity: 0;
+      }
+      100% {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+    
+    @keyframes slideInRight {
+      0% {
+        transform: translateX(15px);
+        opacity: 0;
+      }
+      100% {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+    
+    @keyframes fadeInUp {
+      0% {
+        transform: translateY(10px);
+        opacity: 0;
+      }
+      100% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+    
+    /* Faster animations on mobile */
+    .animate-slideInLeft,
+    .animate-slideInRight {
+      animation-duration: 0.5s;
+    }
+    
+    .animate-fadeInUp {
+      animation-duration: 0.4s;
+    }
+  }
+  
+  /* Reduced Motion Support */
+  @media (prefers-reduced-motion: reduce) {
+    .animation-element {
+      opacity: 1;
+      transform: none;
+    }
+    
+    .animate-slideInLeft,
+    .animate-slideInRight,
+    .animate-fadeInUp,
+    .animate-scaleIn {
+      animation: none;
+    }
+  }
+  
+  /* Performance Optimizations */
+  .animation-element {
+    backface-visibility: hidden;
+    perspective: 1000px;
+  }
+  
+  /* Enhanced Hover Effects */
+  @media (hover: hover) {
+    .hover\:shadow-md:hover {
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    }
+    
+    .hover\:shadow-2xl:hover {
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    }
+  }
+</style>
+
+<script>
+  // Extend Window interface for TypeScript
+  // @ts-ignore
+  declare global {
+    interface Window {
+      ezivzObserver?: IntersectionObserver;
+    }
+  }
+
+  // Enhanced Intersection Observer for Astro
+  document.addEventListener('astro:page-load', initializeAnimations);
+  document.addEventListener('DOMContentLoaded', initializeAnimations);
+  
+  function initializeAnimations() {
+    const animatedElements = document.querySelectorAll('.animation-element');
+    
+    // Clear any existing observers
+    if (window.ezivzObserver) {
+      window.ezivzObserver.disconnect();
+    }
+    
+    // Create new observer with better mobile performance
+    const observerOptions = {
+      threshold: window.innerWidth < 768 ? 0.1 : 0.2,
+      rootMargin: window.innerWidth < 768 ? '0px 0px -50px 0px' : '0px 0px -100px 0px'
+    };
+    
+    window.ezivzObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const element = entry.target as HTMLElement;
+          const animation = element.dataset.animation || 'fadeInUp';
+          const delay = parseInt(element.dataset.delay || '0');
+          
+          // Apply delay and trigger animation
+          setTimeout(() => {
+            element.classList.add(`animate-${animation}`, 'animate-triggered');
+          }, delay);
+          
+          // Stop observing this element
+          window.ezivzObserver.unobserve(element);
+        }
+      });
+    }, observerOptions);
+    
+    // Start observing elements
+    animatedElements.forEach(element => {
+      window.ezivzObserver.observe(element);
+    });
+  }
+  
+  // Handle page transitions in Astro
+  document.addEventListener('astro:before-swap', () => {
+    if (window.ezivzObserver) {
+      window.ezivzObserver.disconnect();
+    }
+  });
+</script>

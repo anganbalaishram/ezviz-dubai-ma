@@ -1,0 +1,126 @@
+---
+import Layout from "../layouts/Layout.astro";
+import "../styles/global.css";
+import Hero from "../components/Hero.astro";
+import Details from "../components/Details.astro";
+import Ezviz from "../components/Ezviz.astro";
+import Products from "../components/Products.astro";
+import Whatsapp from "../components/Whatsapp";
+
+const title: string = "Ezviz Authorized Distributor in Dubai, UAE | Ezviz Dubai";
+const description: string = "Premier Ezviz Distributor in Dubai, UAE offering security Cameras and Accessories. Authorized Ezviz partner with expert support & installation services.";
+
+
+const structuredData = {
+ "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://ezviz-dubai.com/#organization",
+      "name": "Ezviz Dubai",
+      "url": "https://ezviz-dubai.com",
+      "logo": {
+        "@type": "ImageObject",
+        "@id": `${Astro.url.origin}/images/logo.png`,
+        "url": `${Astro.url.origin}/images/logo.png`,
+  
+        "caption": "ezvizdubai",
+        "inLanguage": "en-US",
+        "width": 1000,
+        "height": 375
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://ezviz-dubai.com/#website",
+      "url": "https://ezviz-dubai.com",
+      "name": "Ezviz Dubai | Authorized Distributor in UAE ",
+      "publisher": {
+        "@id": "https://ezviz-dubai.com/#organization"
+      },
+      "inLanguage": "en-US",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://ezviz-dubai.com/?s={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    },
+    {
+      "@type": "ImageObject",
+      "@id": `${Astro.url.origin}/images/logo.png`,
+      "url": `${Astro.url.origin}/images/logo.png`,
+      "width": 200,
+      "height": 200,
+      "inLanguage": "en-US"
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://ezviz-dubai.com/#webpage",
+      "url": "https://ezviz-dubai.com/",
+      "name": "Ezviz Authorized Distributor in Dubai, UAE | Security Solutions ",
+      "description": description,
+      "datePublished": "2023-05-05T12:19:39+01:00",
+      "dateModified": "2024-11-25T11:05:33+00:00",
+      "about": {
+        "@id": "https://ezviz-dubai.com/#organization"
+      },
+      "isPartOf": {
+        "@id": "https://ezviz-dubai.com/#website"
+      },
+      "primaryImageOfPage": {
+        "@id": `${Astro.url.origin}/images/logo.png`,
+      },
+      "inLanguage": "en-US"
+    },
+    {
+      "@type": "Article",
+      "headline": "Ezviz Security Solutions in Dubai - Authorized Distributor",
+      "datePublished": "2023-05-05T12:19:39+01:00",
+      "dateModified": "2024-11-25T11:05:33+00:00",
+      "publisher": {
+        "@id": "https://ezviz-dubai.com/#organization"
+      },
+      "description": description,
+      "name": title,
+      "@id": "https://ezviz-dubai.com/#richSnippet",
+      "isPartOf": {
+        "@id": "https://ezviz-dubai.com/#webpage"
+      },
+      "inLanguage": "en-US",
+      "mainEntityOfPage": {
+        "@id": "https://ezviz-dubai.com/#webpage"
+      },
+      "author": {
+        "@type": "Organization",
+        "name": "Ezviz Dubai"
+      },
+      "image": {
+        "@type": "ImageObject",
+        "url":  `${Astro.url.origin}/unvdubai.png`,
+        "width": 1200,
+        "height": 630,
+        "caption": "Ezviz Dubai Authorized Distributor"
+      },
+    
+    }
+  ]
+};
+---
+<meta charset="UTF-8" />
+
+<Layout
+  title={title} 
+  description={description} 
+  structuredData={structuredData}
+  canonicalUrl={Astro.url.href}
+  ogTitle={title}
+  ogDescription={description}
+  ogImage={`${Astro.url.origin}/images/logo.png`}
+  ogUrl={Astro.url.href}
+  twitterCard="summary_large_image">
+  <Hero />
+  <Products />
+  <Details />
+  <Ezviz />
+   <Whatsapp client:load />
+</Layout>

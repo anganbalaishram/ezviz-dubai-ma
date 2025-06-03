@@ -1,0 +1,1379 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { getCollection } from 'astro:content';
+import "../../styles/global.css";
+import Whatsapp from "../../components/Whatsapp";
+
+const products = await getCollection('outdoor-wifi');
+const title = "Outdoor Wi-FI Cameras";
+const description = "High-performance surveillance solutions";
+const canonicalURL = new URL("/categories/outdoorcamera", Astro.site);
+
+function formatPrice(price) {
+  const num = Number(price);
+  if (isNaN(num) || num < 0) return "0.00";
+  return num.toFixed(2);
+}
+
+
+// Schema.org markup
+// Replace the existing structuredData object with this fixed version:
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  name: title,
+  description: description,
+  url: canonicalURL,
+  mainEntity: {
+    "@type": "ItemList",
+    itemListElement: (await getCollection('outdoor-wifi')).map((product, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      item: {
+        "@type": "Product",
+        name: product.data.title,
+        description: product.data.description,
+        // Fixed: Use absolute URL or placeholder for valid image
+        image: product.data.image.startsWith('http') ? product.data.image : `https://ezviz-dubai.com/images/${product.slug}.png`,
+        url: new URL(`/categories/outdoorcamera/${product.slug}`, Astro.site).toString(),
+        offers: {
+          "@type": "Offer",
+          priceCurrency: "AED",
+          price: formatPrice(product.data.price),
+          availability: "https://schema.org/InStock",
+          itemCondition: "https://schema.org/NewCondition",
+          // Fixed: Added seller information
+          seller: {
+            "@type": "Organization",
+            name: "Ezviv-Dubai" // Replace with your store name
+          },
+          // Fixed: Added shipping details
+          shippingDetails: {
+            "@type": "OfferShippingDetails",
+            shippingRate: {
+              "@type": "MonetaryAmount",
+              value: "0.00", // Free shipping or set your rate
+              currency: "AED"
+            },
+            deliveryTime: {
+              "@type": "ShippingDeliveryTime",
+              handlingTime: {
+                "@type": "QuantitativeValue",
+                minValue: 1,
+                maxValue: 2,
+                unitCode: "DAY"
+              },
+              transitTime: {
+                "@type": "QuantitativeValue",
+                minValue: 1,
+                maxValue: 3,
+                unitCode: "DAY"
+              }
+            }
+          },
+          // Fixed: Added return policy
+          hasMerchantReturnPolicy: {
+            "@type": "MerchantReturnPolicy",
+            applicableCountry: "AE",
+            returnPolicyCategory: "https://schema.org/MerchantReturnFiniteReturnWindow",
+            merchantReturnDays: 30,
+            returnMethod: "https://schema.org/ReturnByMail",
+            returnFees: "https://schema.org/FreeReturn"
+          }
+        },
+        aggregateRating: {
+          "@type": "AggregateRating",
+          ratingValue: ((product.data as any).rating || "4.5").toString(),
+          reviewCount: ((product.data as any).reviewCount || "10").toString(),
+          bestRating: "5",
+          worstRating: "0"
+        },
+       
+      }
+    }))
+  }
+};
+---
+<meta charset="UTF-8" />
+<Layout  title={title} 
+    description={description}
+    structuredData={structuredData}
+    canonical={canonicalURL}>
+    <style>
+        
+    /* Enhanced Animations */
+    @keyframes fadeInUp {
+        from {
+            transform: translateY(50px);
+            opacity: 0;
+        }
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+
+    @keyframes slideInLeft {
+        from {
+            transform: translateX(-50px);
+            opacity: 0;
+        }
+        to {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+
+    @keyframes slideInRight {
+        from {
+            transform: translateX(50px);
+            opacity: 0;
+        }
+        to {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+
+    @keyframes scaleIn {
+        from {
+            transform: scale(0.8);
+            opacity: 0;
+        }
+        to {
+            transform: scale(1);
+            opacity: 1;
+        }
+    }
+
+    @keyframes bounce {
+        0%, 20%, 50%, 80%, 100% {
+            transform: translateY(0);
+        }
+        40% {
+            transform: translateY(-10px);
+        }
+        60% {
+            transform: translateY(-5px);
+        }
+    }
+
+    @keyframes float {
+        0%, 100% {
+            transform: translateY(0px);
+        }
+        50% {
+            transform: translateY(-10px);
+        }
+    }
+
+    @keyframes glow {
+        0%, 100% {
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+        }
+        50% {
+            box-shadow: 0 0 30px rgba(59, 130, 246, 0.5);
+        }
+    }
+
+    @keyframes shimmer {
+        0% {
+            background-position: -200% 0;
+        }
+        100% {
+            background-position: 200% 0;
+        }
+    }
+
+    @keyframes pulse {
+        0%, 100% {
+            opacity: 1;
+        }
+        50% {
+            opacity: 0.5;
+        }
+    }
+
+    @keyframes slideInFromTop {
+        from {
+            transform: translateY(-100px);
+            opacity: 0;
+        }
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+
+    @keyframes rotateIn {
+        from {
+            transform: rotate(-180deg) scale(0);
+            opacity: 0;
+        }
+        to {
+            transform: rotate(0deg) scale(1);
+            opacity: 1;
+        }
+    }
+
+    @keyframes flipInX {
+        from {
+            transform: perspective(400px) rotateX(90deg);
+            opacity: 0;
+        }
+        to {
+            transform: perspective(400px) rotateX(0deg);
+            opacity: 1;
+        }
+    }
+
+    @keyframes zoomInRotate {
+        from {
+            transform: scale(0) rotate(180deg);
+            opacity: 0;
+        }
+        to {
+            transform: scale(1) rotate(0deg);
+            opacity: 1;
+        }
+    }
+
+    @keyframes wiggle {
+        0%, 7% { transform: rotateZ(0); }
+        15% { transform: rotateZ(-15deg); }
+        20% { transform: rotateZ(10deg); }
+        25% { transform: rotateZ(-10deg); }
+        30% { transform: rotateZ(6deg); }
+        35% { transform: rotateZ(-4deg); }
+        40%, 100% { transform: rotateZ(0); }
+    }
+
+    @keyframes heartbeat {
+        0% { transform: scale(1); }
+        14% { transform: scale(1.3); }
+        28% { transform: scale(1); }
+        42% { transform: scale(1.3); }
+        70% { transform: scale(1); }
+    }
+
+    /* Banner - Full Width with overflow fix */
+    .hero-banner {
+        background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+        position: relative;
+        overflow: hidden;
+        min-height: 500px;
+        display: flex;
+        align-items: center;
+        width: 100vw;
+        margin-left: calc(50% - 50vw);
+        margin-bottom: 0;
+    }
+
+    .hero-banner::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('https://images.unsplash.com/photo-1557804506-669a67965ba0?w=1920&h=1080&fit=crop') center/cover;
+        opacity: 0.15;
+        animation: float 6s ease-in-out infinite;
+    }
+
+    /* Enhanced Product Card */
+    .product-card {
+        background: #ffffff;
+        border-radius: 12px;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        border: 1px solid rgba(0, 0, 0, 0.08);
+        animation: fadeInUp 0.8s ease-out forwards;
+        opacity: 0;
+    }
+
+    .product-card:hover {
+        transform: translateY(-12px) scale(1.02);
+        box-shadow: 0 30px 60px -12px rgba(59, 130, 246, 0.4);
+        border-color: rgba(59, 130, 246, 0.5);
+        animation: glow 2s ease-in-out infinite;
+    }
+
+    .product-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, #3b82f6, #1d4ed8, #3b82f6);
+        background-size: 200% 100%;
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.6s ease;
+    }
+
+    .product-card:hover::before {
+        transform: scaleX(1);
+        animation: shimmer 2s ease-in-out infinite;
+    }
+
+    .product-image-container {
+        position: relative;
+        overflow: hidden;
+        background: #f8fafc;
+        height: 240px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 15px;
+    }
+
+    .product-card:hover .product-badge {
+        transform: scale(1.2) rotate(10deg);
+        background: #3b82f6;
+        animation: heartbeat 1.5s ease-in-out infinite;
+    }
+
+    .product-card:hover .product-badge svg {
+        color: white;
+    }
+
+    /* Enhanced Image Effects - No more disappearing */
+    .product-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        filter: brightness(0.95) saturate(1);
+        border-radius: 8px;
+        transform: scale(1);
+    }
+
+    .product-card:hover .product-image {
+        transform: scale(1.1);
+        filter: brightness(1.1) saturate(1.3) contrast(1.1);
+        border-radius: 12px;
+    }
+
+    /* Add overlay effects on hover */
+    .product-image-container::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(45deg, rgba(59, 130, 246, 0.1), rgba(147, 51, 234, 0.1));
+        opacity: 0;
+        transition: opacity 0.4s ease;
+        border-radius: 8px;
+    }
+
+    .product-card:hover .product-image-container::after {
+        opacity: 1;
+    }
+
+    /* Animation Classes with More Variety */
+    .category-item {
+        animation: fadeInUp 0.8s ease-out forwards;
+        opacity: 0;
+    }
+
+    .category-item:nth-child(4n+1) {
+        animation: slideInLeft 0.8s ease-out forwards;
+        animation-delay: 0.1s;
+    }
+
+    .category-item:nth-child(4n+2) {
+        animation: scaleIn 0.8s ease-out forwards;
+        animation-delay: 0.2s;
+    }
+
+    .category-item:nth-child(4n+3) {
+        animation: slideInRight 0.8s ease-out forwards;
+        animation-delay: 0.3s;
+    }
+
+    .category-item:nth-child(4n+4) {
+        animation: slideInRight 0.8s ease-out forwards;
+        animation-delay: 0.3s;
+    }
+
+    .hero-content {
+        animation: slideInLeft 1s ease-out forwards;
+    }
+
+    .hero-image {
+        animation: zoomInRotate 1.2s ease-out forwards;
+        animation-delay: 0.3s;
+        opacity: 0;
+    }
+
+    .stat-item {
+        animation: rotateIn 0.8s ease-out forwards;
+        opacity: 0;
+    }
+
+    .stat-item:nth-child(1) {
+        animation-delay: 0.8s;
+    }
+
+    .stat-item:nth-child(2) {
+        animation-delay: 1s;
+    }
+
+    .stat-item:nth-child(3) {
+        animation-delay: 1.2s;
+    }
+
+    .section-title {
+        animation: slideInFromTop 0.8s ease-out forwards;
+        opacity: 0;
+    }
+
+    .section-subtitle {
+        animation: fadeInUp 0.8s ease-out forwards;
+        animation-delay: 0.2s;
+        opacity: 0;
+    }
+
+    /* Enhanced Button Animations */
+    .animated-button {
+        position: relative;
+        overflow: hidden;
+        transition: all 0.3s ease;
+    }
+
+    .animated-button::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+        transition: left 0.6s ease;
+    }
+
+    .animated-button:hover::before {
+        left: 100%;
+    }
+
+    .animated-button:hover {
+        transform: translateY(-2px) scale(1.05);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+    }
+
+    .animated-button:active {
+        transform: translateY(0) scale(0.98);
+    }
+
+    /* Floating Elements with More Animation */
+    .floating-element {
+        animation: float 4s ease-in-out infinite;
+    }
+
+    .floating-element:nth-child(odd) {
+        animation-delay: -2s;
+    }
+
+    .floating-element:hover {
+        animation: wiggle 0.8s ease-in-out;
+    }
+
+    /* Scroll-triggered animations */
+    .animate-on-scroll {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.6s ease-out;
+    }
+
+    .animate-on-scroll.animated {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    /* Enhanced Search and Filter Styles */
+   /* Enhanced Search and Filter Styles */
+    .search-glow {
+        background: transparent !important;
+        border: 2px solid rgba(59, 130, 246, 0.3) !important;
+        color: #000000 !important;
+        backdrop-filter: blur(10px);
+    }
+
+    .search-glow:focus {
+        border-color: rgba(59, 130, 246, 0.8) !important;
+        background: rgba(255, 255, 255, 0.2) !important;
+        animation: glow 2s ease-in-out infinite;
+        transform: scale(1.02);
+        color: #000000 !important;
+    }
+
+    .search-glow::placeholder {
+        color: rgba(0, 0, 0, 0.6) !important;
+    }
+
+    .filter-btn {
+        position: relative;
+        overflow: hidden;
+        background: transparent !important;
+        border: 2px solid rgba(59, 130, 246, 0.3) !important;
+        color: #000000 !important;
+        transition: all 0.3s ease;
+    }
+
+    .filter-btn::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+        transition: left 0.5s;
+    }
+
+    .filter-btn:hover::before {
+        left: 100%;
+    }
+
+    .filter-btn:hover {
+        background: rgba(59, 130, 246, 0.1) !important;
+        border-color: rgba(59, 130, 246, 0.6) !important;
+        color: rgba(59, 130, 246, 1) !important;
+        transform: translateY(-2px) scale(1.05);
+    }
+
+    .filter-btn.bg-blue-600 {
+        background: rgba(59, 130, 246, 0.9) !important;
+        border-color: rgba(59, 130, 246, 0.9) !important;
+        color: white !important;
+    }
+
+    /* Enhanced Price Animation */
+    .price-tag {
+        position: relative;
+        display: inline-block;
+        transition: all 0.3s ease;
+    }
+
+    .product-card:hover .price-tag {
+        animation: pulse 1s ease-in-out infinite;
+        transform: scale(1.1);
+    }
+
+    /* Loading Animation for Cards */
+    .product-card.loading {
+        animation: pulse 1.5s ease-in-out infinite;
+    }
+
+    /* Fix overflow issues */
+    body {
+        overflow-x: hidden;
+    }
+
+    /* Remove extra margin/padding that might cause the bar */
+    .hero-banner + section {
+        margin-top: 0;
+        padding-top: 5rem;
+    }
+
+    /* Custom Scrollbar */
+    .custom-scrollbar::-webkit-scrollbar {
+        width: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 10px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: #888;
+        border-radius: 10px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+        background: #555;
+    }
+
+    /* Additional Micro-animations */
+    .add-to-cart-btn {
+        transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .add-to-cart-btn:hover {
+      
+        box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+    }
+
+    .rating-stars {
+        display: inline-flex;
+        gap: 2px;
+        transition: all 0.3s ease;
+    }
+
+    .product-card:hover .rating-stars {
+        transform: scale(1.1);
+        animation: wiggle 0.6s ease-in-out;
+    }
+
+    /* Stagger animations for grid items */
+    .products-grid .product-card:nth-child(1) { animation-delay: 0.1s; }
+    .products-grid .product-card:nth-child(2) { animation-delay: 0.2s; }
+    .products-grid .product-card:nth-child(3) { animation-delay: 0.3s; }
+    .products-grid .product-card:nth-child(4) { animation-delay: 0.4s; }
+    .products-grid .product-card:nth-child(5) { animation-delay: 0.5s; }
+    .products-grid .product-card:nth-child(6) { animation-delay: 0.6s; }
+    .products-grid .product-card:nth-child(7) { animation-delay: 0.7s; }
+    .products-grid .product-card:nth-child(8) { animation-delay: 0.8s; }
+
+    /* Enhanced hover effects for product content */
+    .product-card .product-title {
+        transition: all 0.3s ease;
+    }
+
+    .product-card:hover .product-title {
+        color: #3b82f6;
+        transform: translateX(5px);
+    }
+
+    .product-card .product-description {
+        transition: all 0.3s ease;
+    }
+
+    .product-card:hover .product-description {
+        color: #1f2937;
+        transform: translateY(-2px);
+    }
+
+    /* Dark mode adjustments */
+    @media (prefers-color-scheme: dark) {
+        .search-glow {
+            color: #000000 !important;
+            border-color: rgba(59, 130, 246, 0.5) !important;
+        }
+
+        .search-glow::placeholder {
+            color: rgba(156, 163, 175, 0.7) !important;
+        }
+
+        .filter-btn {
+            color: rgba(147, 197, 253, 0.8) !important;
+            border-color: rgba(59, 130, 246, 0.4) !important;
+        }
+
+        .filter-btn:hover {
+            background: rgba(59, 130, 246, 0.2) !important;
+            color: rgba(147, 197, 253, 1) !important;
+        }
+    }
+
+    /* Make filter button text black by default */
+.filter-btn {
+  color: #000 !important;
+}
+
+/* Active filter button (already styled as white text on blue) */
+.filter-btn.bg-blue-600,
+.filter-btn.text-white {
+  color: #fff !important;
+}
+
+.animated-button.explore-btn {
+    border: 1.5px solid #3b82f6 !important;
+    background: transparent !important;
+    color: #fff !important;
+    transition: background 0.3s, color 0.3s, border-color 0.3s;
+}
+.animated-button.explore-btn:hover {
+    background: #2563eb !important; /* blue-600 */
+    color: #fff !important;
+    border-color: #2563eb !important;
+}
+</style>
+    <section class="hero-banner">
+        <div class="w-full relative z-10">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center py-16">
+                    <!-- Left Content -->
+                    <div class="text-white hero-content">
+                        <h1 class="text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+                            Outdoor Wi-Fi <span class="text-blue-400"> Cameras</span>
+                        </h1>
+                        <p class="text-lg text-slate-200 mb-8 leading-relaxed max-w-lg animate-on-scroll">
+                            Revolutionary battery-powered surveillance with AI-driven detection, crystal-clear 4K recording, and seamless smart home integration.
+                        </p>
+                        <div class="flex flex-col sm:flex-row gap-4">
+        
+                            <button 
+    onclick="document.getElementById('products').scrollIntoView({behavior: 'smooth'})"
+    class="animated-button explore-btn inline-flex items-center justify-center border border-slate-300 px-8 py-3 rounded-lg font-medium text-base transition-all duration-300"
+>
+    Explore Products
+    <i class="fas fa-arrow-down ml-2"></i>
+</button>
+                        </div>
+
+                        <!-- Stats -->
+                        <div class="grid grid-cols-3 gap-8 pt-8 border-t border-white/20">
+                            <div class="stat-item text-center">
+                                <div class="text-2xl font-bold text-blue-400 mb-2">365+</div>
+                                <div class="text-sm text-slate-300">Days Battery Life</div>
+                            </div>
+                            <div class="stat-item text-center">
+                                <div class="text-2xl font-bold text-blue-400 mb-2">4K</div>
+                                <div class="text-sm text-slate-300">Ultra HD Quality</div>
+                            </div>
+                            <div class="stat-item text-center">
+                                <div class="text-2xl font-bold text-blue-400 mb-2">AI</div>
+                                <div class="text-sm text-slate-300">Smart Detection</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Right Content - Camera Visualization -->
+                    <div class="relative hidden lg:block hero-image">
+                        <div class="relative mx-auto h-96 w-96 floating-element">
+                            <div class="absolute inset-0 rounded-full bg-gradient-to-r from-blue-500/20 to-purple-500/20 animate-pulse"></div>
+                            <div class="absolute inset-4 rounded-full bg-gradient-to-r from-white/10 to-white/5 backdrop-blur-lg border border-white/20">
+                                <div class="flex h-full items-center justify-center">
+                                    <i class="fas fa-video text-6xl text-white opacity-80"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2">
+            <div class="animate-bounce">
+                <i class="fas fa-chevron-down text-white text-2xl opacity-60"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content Section -->
+    <section class="relative sm:py-32">
+        <!-- Background Elements -->
+        <div class="absolute inset-0 bg-[url('/grid-pattern.svg')] opacity-5 dark:opacity-10"></div>
+
+        <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <!-- Search and Filter Section -->
+            <div class="mb-16 space-y-8">
+                <!-- Search Bar -->
+                <div class="relative max-w-2xl mx-auto">
+                    <div class="relative">
+                        <input
+                            type="text"
+                            id="searchInput"
+                            placeholder="Search cameras by model, features, or specifications..."
+                            class="search-glow w-full px-6 py-4 pl-14 pr-16 text-lg rounded-2xl backdrop-blur-xl focus:outline-none focus:ring-4 focus:ring-blue-500/20 transition-all duration-300 shadow-lg hover:shadow-xl"
+                        />
+                        <div class="absolute inset-y-0 left-0 flex items-center pl-5">
+                            <i class="fas fa-search text-gray-400 text-xl"></i>
+                        </div>
+                        <button class="absolute inset-y-0 right-0 flex items-center pr-5 text-blue-600 hover:text-blue-700 transition-all duration-300 hover:scale-110">
+                            <i class="fas fa-microphone text-xl"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Filter Buttons -->
+                <div class="flex flex-wrap justify-center gap-4">
+                    <button class="filter-btn px-6 py-3 t rounded-full font-medium transform hover:scale-105 transition-all duration-300 shadow-lg" data-filter="all">
+                        <i class="fas fa-th-large mr-2"></i>All Products
+                    </button>
+                    <button class="filter-btn px-6 py-3 rounded-full font-medium transform hover:scale-105 transition-all duration-300 shadow-lg" data-filter="b">
+                        <i class="fas fa-battery-full mr-2"></i>B Series
+                    </button>
+                    <button class="filter-btn px-6 py-3 rounded-full font-medium transform hover:scale-105 transition-all duration-300 shadow-lg" data-filter="c">
+                        <i class="fas fa-sync-alt mr-2"></i>C Series
+                    </button>
+                    <button class="filter-btn px-6 py-3 rounded-full font-medium transform hover:scale-105 transition-all duration-300 shadow-lg" data-filter="e">
+                        <i class="fas fa-cloud-sun mr-2"></i>E Series
+                    </button>
+                    <button class="filter-btn px-6 py-3 rounded-full font-medium transform hover:scale-105 transition-all duration-300 shadow-lg" data-filter="h">
+                        <i class="fas fa-brain mr-2"></i>H Series
+                    </button>
+                </div>
+
+                <!-- Sort Options -->
+                <div class="flex justify-between items-center">
+                    <div class="text-sm text-black animate-on-scroll">
+                        <span id="productCount">{products.length}</span> products found
+                    </div>
+                    <select
+                        id="sortSelect"
+                        class="px-4 py-2 border-2 border-blue-300 rounded-lg bg-transparent text-black focus:outline-none focus:ring-4 focus:ring-blue-200 transition-all duration-300 hover:border-blue-500 shadow-[0_2px_8px_rgba(59,130,246,0.08)]"
+                    >
+                        <option value="default">Sort by Default</option>
+                        <option value="name">Sort by Name</option>
+                        <option value="newest">Newest First</option>
+                        <option value="popular">Most Popular</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Enhanced Products Grid -->
+            <div id="products" class="products-grid grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                {products.map((product, index) => (
+                    <a 
+                        href={`/categories/outdoorcamera/${product.slug}`}
+                        class="product-card category-item"
+                        data-name={product.data.title.toLowerCase()}
+                        style={`animation-delay: ${index * 100}ms`}
+                    >
+                        <!-- Product Image -->
+                        <div class="product-image-container">
+                            <img 
+                                src={product.data.image} 
+                                alt={product.data.title}
+                                class="product-image"
+                                loading="lazy"
+                            />
+                            <!-- Badges -->
+                            
+                        </div>
+
+                        <!-- Product Content -->
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-lg font-semibold">
+                                    {product.data.title}
+                                </h3>
+                                <div class="rating-stars flex items-center">
+                                    <i class="fas fa-star text-yellow-400 text-sm mr-1"></i>
+                                    <span class="text-sm font-medium text-gray-700 dark:text-gray-300">
+                                        4.5
+                                    </span>
+                                </div>
+                            </div>
+
+                            <p class="product-description text-gray-600 dark:text-gray-400 text-sm mb-4 line-clamp-2 transition-all duration-300">
+                                {product.data.description}
+                            </p>
+
+                            <div class="flex justify-between items-center">
+                               
+                                <button class="add-to-cart-btn animated-button px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-all duration-300">
+                                    <i class="fas fa-shopping-cart mr-2"></i>Read More
+                                </button>
+                            </div>
+                        </div>
+                    </a>
+                ))}
+            </div>
+
+            <!-- No Results Message -->
+            <div id="noResults" class="hidden text-center py-16">
+                <div class="mx-auto w-64 h-64 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center mb-8">
+                    <i class="fas fa-search text-6xl text-gray-400"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">No cameras found</h3>
+                <p class="text-gray-600 dark:text-gray-400 max-w-md mx-auto">
+                    Try adjusting your search terms or filters to find the perfect security camera for your needs.
+                </p>
+                <button onclick="clearFilters()" class="animated-button mt-6 px-6 py-3 bg-blue-600 text-white rounded-full font-medium hover:bg-blue-700 transform hover:scale-105 transition-all duration-300">
+                    Clear Filters
+                </button>
+            </div>
+        </div>
+         <Whatsapp client:load />
+    </section>
+
+    <script is:inline>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Enhanced scroll animations with intersection observer
+            const animateElements = document.querySelectorAll('.animate-on-scroll');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animated');
+                        // Add stagger effect for multiple elements
+                        setTimeout(() => {
+                            entry.target.style.transform = 'translateY(0) scale(1.02)';
+                            setTimeout(() => {
+                                entry.target.style.transform = 'translateY(0) scale(1)';
+                            }, 200);
+                        }, 100);
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            });
+
+            animateElements.forEach(el => observer.observe(el));
+
+            // Product cards animation observer
+            const productCards = document.querySelectorAll('.product-card');
+            const isMobile = window.innerWidth <= 768;
+
+            if (isMobile) {
+                // On mobile: No animation on initial load, but filtered products will fade in
+                productCards.forEach(card => {
+                    card.style.opacity = '1';
+                    card.style.animation = 'none';
+                    card.style.transition = 'none';
+                });
+
+                // Override filterProducts for mobile to use fade-in on filtered results
+                function filterProducts() {
+                    const searchTerm = searchInput.value.toLowerCase();
+                    const activeFilter = document.querySelector('.filter-btn.bg-blue-600')?.dataset.filter || 'all';
+
+                    productItems.forEach((item, index) => {
+                        const name = item.dataset.name || '';
+                        const category = item.dataset.category || '';
+
+                        // Only allow names that start with b, c, e, or h
+                        const allowed = ['b', 'c', 'e', 'h'];
+                        const startsWithAllowed = allowed.some(letter => name.startsWith(letter));
+
+                        // Filter logic
+                        let show = false;
+
+                        if (activeFilter === 'all') {
+                            show = startsWithAllowed && name.includes(searchTerm);
+                        } else if (allowed.includes(activeFilter)) {
+                            show = name.startsWith(activeFilter) && name.includes(searchTerm);
+                        } else {
+                            show = name.includes(searchTerm);
+                        }
+
+                        if (show) {
+                            item.style.display = 'block';
+                            item.style.opacity = '0';
+                            item.style.animation = 'none';
+                            setTimeout(() => {
+                                item.style.transition = 'opacity 0.7s';
+                                item.style.opacity = '1';
+                            }, 10);
+                        } else {
+                            item.style.display = 'none';
+                            item.style.opacity = '0';
+                        }
+                    });
+
+                    updateProductCount();
+                }
+            } else {
+                // On desktop: keep animation as before
+                const cardObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.style.animationPlayState = 'running';
+                            // Add micro bounce effect
+                            setTimeout(() => {
+                                entry.target.style.transform = 'translateY(-5px)';
+                                setTimeout(() => {
+                                    entry.target.style.transform = 'translateY(0)';
+                                }, 150);
+                            }, 300);
+                        }
+                    });
+                }, { threshold: 0.2 });
+
+                productCards.forEach(card => {
+                    card.style.animationPlayState = 'paused';
+                    cardObserver.observe(card);
+                });
+            }
+
+            // Search functionality with enhanced animations
+            const searchInput = document.getElementById('searchInput');
+            const productItems = document.querySelectorAll('.product-card');
+            const productCount = document.getElementById('productCount');
+            const noResults = document.getElementById('noResults');
+            const productsGrid = document.getElementById('products');
+
+            function updateProductCount() {
+                const visibleProducts = Array.from(productItems).filter(item => 
+                    item.style.display !== 'none'
+                ).length;
+                
+                // Animate counter
+                animateCounter(productCount, parseInt(productCount.textContent), visibleProducts);
+                
+                if (visibleProducts === 0) {
+                    noResults.classList.remove('hidden');
+                    noResults.style.animation = 'fadeInUp 0.5s ease-out forwards';
+                    productsGrid.classList.add('hidden');
+                } else {
+                    noResults.classList.add('hidden');
+                    productsGrid.classList.remove('hidden');
+                }
+            }
+
+            function animateCounter(element, start, end) {
+                const duration = 300;
+                const startTime = performance.now();
+                
+                function updateCounter(currentTime) {
+                    const elapsed = currentTime - startTime;
+                    const progress = Math.min(elapsed / duration, 1);
+                    const current = Math.floor(start + (end - start) * progress);
+                    element.textContent = current;
+                    
+                    if (progress < 1) {
+                        requestAnimationFrame(updateCounter);
+                    }
+                }
+                requestAnimationFrame(updateCounter);
+            }
+
+            function filterProducts() {
+                const searchTerm = searchInput.value.toLowerCase();
+                const activeFilter = document.querySelector('.filter-btn.bg-blue-600')?.dataset.filter || 'all';
+
+                productItems.forEach((item, index) => {
+                    const name = item.dataset.name || '';
+                    const category = item.dataset.category || '';
+
+                    // Only allow names that start with b, c, e, or h
+                    const allowed = ['b', 'c', 'e', 'h'];
+                    const startsWithAllowed = allowed.some(letter => name.startsWith(letter));
+
+                    // Filter logic
+                    let show = false;
+
+                    if (activeFilter === 'all') {
+                        // Show all allowed products matching search
+                        show = startsWithAllowed && name.includes(searchTerm);
+                    } else if (allowed.includes(activeFilter)) {
+                        // Show only products starting with the selected letter and matching search
+                        show = name.startsWith(activeFilter) && name.includes(searchTerm);
+                    } else {
+                        // Fallback (should not happen)
+                        show = name.includes(searchTerm);
+                    }
+
+                    if (show) {
+                        item.style.display = 'block';
+                        item.style.animation = `fadeInUp 0.6s ease-out forwards`;
+                        item.style.animationDelay = `${index * 50}ms`;
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+
+                updateProductCount();
+            }
+
+            // Enhanced search input animations
+            if (searchInput) {
+                searchInput.addEventListener('focus', () => {
+                    searchInput.parentElement.style.transform = 'scale(1.02)';
+                    searchInput.parentElement.style.boxShadow = '0 20px 40px rgba(59, 130, 246, 0.2)';
+                });
+
+                searchInput.addEventListener('blur', () => {
+                    searchInput.parentElement.style.transform = 'scale(1)';
+                    searchInput.parentElement.style.boxShadow = '0 10px 25px rgba(0, 0, 0, 0.1)';
+                });
+
+                searchInput.addEventListener('input', filterProducts);
+            }
+
+            // Enhanced filter buttons with ripple effect
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            filterButtons.forEach(button => {
+                button.addEventListener('click', (e) => {
+                    // Create ripple effect
+                    const ripple = document.createElement('span');
+                    const rect = button.getBoundingClientRect();
+                    const size = Math.max(rect.width, rect.height);
+                    const x = e.clientX - rect.left - size / 2;
+                    const y = e.clientY - rect.top - size / 2;
+                    
+                    ripple.style.cssText = `
+                        position: absolute;
+                        width: ${size}px;
+                        height: ${size}px;
+                        left: ${x}px;
+                        top: ${y}px;
+                        background: rgba(255, 255, 255, 0.5);
+                        border-radius: 50%;
+                        transform: scale(0);
+                        animation: ripple 0.6s ease-out;
+                        pointer-events: none;
+                    `;
+                    
+                    button.style.position = 'relative';
+                    button.appendChild(ripple);
+                    
+                    setTimeout(() => ripple.remove(), 600);
+
+                    // Remove active class from all buttons
+                    filterButtons.forEach(btn => {
+                        btn.classList.remove('bg-blue-600', 'text-white');
+                        btn.classList.add('bg-transparent');
+                    });
+                    
+                    // Add active class to clicked button
+                    button.classList.add('bg-blue-600', 'text-white');
+                    button.classList.remove('bg-transparent');
+                    
+                    filterProducts();
+                });
+            });
+
+            // Add ripple animation styles
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes ripple {
+                    to {
+                        transform: scale(2);
+                        opacity: 0;
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+
+            // Enhanced sort functionality
+            const sortSelect = document.getElementById('sortSelect');
+            if (sortSelect) {
+                sortSelect.addEventListener('change', () => {
+                    const sortValue = sortSelect.value;
+                    const productContainer = document.getElementById('products');
+                    const products = Array.from(productItems);
+
+                    // Add loading animation
+                    productContainer.style.opacity = '0.5';
+                    productContainer.style.transform = 'scale(0.95)';
+
+                    setTimeout(() => {
+                        products.sort((a, b) => {
+                            switch(sortValue) {
+                                case 'name':
+                                    return a.dataset.name.localeCompare(b.dataset.name);
+                                case 'newest':
+                                    return Math.random() - 0.5;
+                                case 'popular':
+                                    return Math.random() - 0.5;
+                                default:
+                                    return 0;
+                            }
+                        });
+
+                        // Re-append sorted products with animation
+                        products.forEach((product, index) => {
+                            product.style.animation = `fadeInUp 0.6s ease-out forwards`;
+                            product.style.animationDelay = `${index * 50}ms`;
+                            productContainer.appendChild(product);
+                        });
+
+                        productContainer.style.opacity = '1';
+                        productContainer.style.transform = 'scale(1)';
+                    }, 300);
+                });
+            }
+
+            // Enhanced voice search functionality
+            const micButton = document.querySelector('.fa-microphone');
+            if (micButton && micButton.parentElement) {
+                micButton.parentElement.addEventListener('click', () => {
+                    if ('webkitSpeechRecognition' in window) {
+                        const recognition = new webkitSpeechRecognition();
+                        recognition.continuous = false;
+                        recognition.interimResults = false;
+                        recognition.lang = 'en-US';
+
+                        recognition.onstart = () => {
+                            if (searchInput) {
+                                searchInput.placeholder = 'Listening... Speak now!';
+                                micButton.classList.add('text-red-500');
+                                micButton.style.animation = 'pulse 1s infinite';
+                                searchInput.style.borderColor = '#ef4444';
+                            }
+                        };
+
+                        recognition.onresult = (event) => {
+                            const transcript = event.results[0][0].transcript;
+                            if (searchInput) {
+                                searchInput.value = transcript;
+                                // Animate the text appearing
+                                searchInput.style.animation = 'slideInRight 0.5s ease-out';
+                                filterProducts();
+                            }
+                        };
+
+                        recognition.onend = () => {
+                            if (searchInput) {
+                                searchInput.placeholder = 'Search cameras by model, features, or specifications...';
+                                micButton.classList.remove('text-red-500');
+                                micButton.style.animation = '';
+                                searchInput.style.borderColor = '';
+                            }
+                        };
+
+                        recognition.start();
+                    } else {
+                        // Show animated alert
+                        const alert = document.createElement('div');
+                        alert.innerHTML = `
+                            <div style="
+                                position: fixed;
+                                top: 50%;
+                                left: 50%;
+                                transform: translate(-50%, -50%);
+                                background: white;
+                                padding: 2rem;
+                                border-radius: 12px;
+                                box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+                                z-index: 1000;
+                                animation: scaleIn 0.3s ease-out;
+                            ">
+                                <i class="fas fa-exclamation-triangle text-3xl text-yellow-500 mb-4"></i>
+                                <p>Voice search is not supported in this browser.</p>
+                                <button onclick="this.parentElement.parentElement.remove()" 
+                                        style="margin-top: 1rem; padding: 0.5rem 1rem; background: #3b82f6; color: white; border: none; border-radius: 6px; cursor: pointer;">
+                                    OK
+                                </button>
+                            </div>
+                            <div style="
+                                position: fixed;
+                                top: 0;
+                                left: 0;
+                                width: 100%;
+                                height: 100%;
+                                background: rgba(0,0,0,0.5);
+                                z-index: 999;
+                            " onclick="this.parentElement.remove()"></div>
+                        `;
+                        document.body.appendChild(alert);
+                    }
+                });
+            }
+
+            // Clear filters function with animation
+            window.clearFilters = function() {
+                if (searchInput) {
+                    searchInput.value = '';
+                    searchInput.style.animation = 'slideInLeft 0.5s ease-out';
+                }
+                
+                const allButton = document.querySelector('[data-filter="all"]');
+                if (allButton) allButton.click();
+                
+                if (sortSelect) sortSelect.value = 'default';
+                
+                // Animate all products back in
+                productItems.forEach((item, index) => {
+                    item.style.display = 'block';
+                    item.style.animation = `fadeInUp 0.6s ease-out forwards`;
+                    item.style.animationDelay = `${index * 30}ms`;
+                });
+                
+                updateProductCount();
+            };
+
+            // Enhanced parallax effect - Fixed to not interfere with layout
+            let ticking = false;
+            function updateParallax() {
+                const scrolled = window.pageYOffset;
+                const heroElements = document.querySelectorAll('.floating-element');
+                
+                heroElements.forEach((element, index) => {
+                    if (element && element.style) {
+                        const speed = 0.5 + (index * 0.1);
+                        const yPos = -(scrolled * speed);
+                        element.style.transform = `translateY(${yPos}px) scale(${1 + scrolled * 0.0001})`;
+                    }
+                });
+                
+                ticking = false;
+            }
+
+            window.addEventListener('scroll', () => {
+                if (!ticking) {
+                    requestAnimationFrame(updateParallax);
+                    ticking = true;
+                }
+            });
+
+            // Product card hover enhancements
+            productCards.forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    // Add neighboring cards subtle animation
+                    const allCards = Array.from(productCards);
+                    const currentIndex = allCards.indexOf(card);
+                    
+                    // Animate previous and next cards
+                    if (allCards[currentIndex - 1]) {
+                        allCards[currentIndex - 1].style.transform = 'translateY(-5px) scale(1.02)';
+                    }
+                    if (allCards[currentIndex + 1]) {
+                        allCards[currentIndex + 1].style.transform = 'translateY(-5px) scale(1.02)';
+                    }
+                });
+
+                card.addEventListener('mouseleave', () => {
+                    const allCards = Array.from(productCards);
+                    const currentIndex = allCards.indexOf(card);
+                    
+                    // Reset neighboring cards
+                    if (allCards[currentIndex - 1]) {
+                        allCards[currentIndex - 1].style.transform = '';
+                    }
+                    if (allCards[currentIndex + 1]) {
+                        allCards[currentIndex + 1].style.transform = '';
+                    }
+                });
+            });
+
+            // Add smooth scrolling for all anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+
+            // FIXED: Better loading animation that doesn't interfere with layout
+            const mainContent = document.querySelector('main') || document.body;
+            
+            // Set initial state for loading animation
+            if (mainContent) {
+                mainContent.style.opacity = '0';
+                mainContent.style.transform = 'translateY(20px)';
+                mainContent.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+                
+                // Show content after initialization
+                setTimeout(() => {
+                    mainContent.style.opacity = '1';
+                    mainContent.style.transform = 'translateY(0)';
+                }, 100);
+            }
+
+            // Initialize product count
+            if (productCount) {
+                updateProductCount();
+            }
+
+            // Ensure all elements are properly visible
+            setTimeout(() => {
+                // Force visibility of all layout elements
+                const layoutElements = document.querySelectorAll('header, nav, main, footer, section');
+                layoutElements.forEach(el => {
+                    if (el) {
+                        el.style.visibility = 'visible';
+                        el.style.opacity = '1';
+                    }
+                });
+            }, 200);
+        });
+    </script>
+</Layout>

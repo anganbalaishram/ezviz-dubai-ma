@@ -1,0 +1,774 @@
+---
+import Layout from "../layouts/Layout.astro";
+import "../styles/global.css";
+import Whatsapp from "../components/Whatsapp";
+const title = "UNV Camera Distributor in Dubai, UAE ";
+const description = "Authorized UNV security camera distributor in Dubai & UAE. Meet our expert team providing top-quality surveillance solutions with professional installation support.";
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
+
+
+
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://ezviz-dubai.com/#organization",
+      "name": "Ezviz Dubai",
+      "url": "https://ezviz-dubai.com",
+      "logo": {
+        "@type": "ImageObject",
+        "@id": `${Astro.url.origin}/images/logo.png`,
+        "url": `${Astro.url.origin}/images/logo.png`,
+       
+        "caption": "Ezviz Dubai Distributor",
+        "inLanguage": "en-US",
+        "width": 1000,
+        "height": 375
+      },
+      "sameAs": [
+        
+        "",
+       
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://ezviz-dubai.com/#website",
+      "url": "https://ezviz-dubai.com",
+      "name": "Ezviz Security Cameras Dubai | Ezviz Dubai",
+      "description": description,
+      "publisher": {
+        "@id": "https://ezviz-dubai/#organization"
+      },
+      "inLanguage": "en-US",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://ezviz-dubai/search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    },
+    {
+      "@type": "WebPage",
+      "@id": `${canonicalUrl}#webpage`,
+      "url": canonicalUrl.toString(),
+      "name": title,
+      "description": description,
+      "isPartOf": {
+        "@id": "https://ezviz-dubai.com/#website"
+      },
+      "about": {
+        "@id": "https://ezviz-dubai.com/#organization"
+      },
+      "inLanguage": "en-US",
+      "breadcrumb": {
+        "@id": `${canonicalUrl}#breadcrumb`
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": `${canonicalUrl}#breadcrumb`,
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://ezviz-dubai.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "About Us",
+          "item": canonicalUrl.toString()
+        }
+      ]
+    },
+    {
+      "@type": "AboutPage",
+      "@id": `${canonicalUrl}#aboutpage`,
+      "url": canonicalUrl.toString(),
+      "name": "About Ezviz Dubai Distributor - Ezviz Dubai",
+      "description": "Learn about our expert team and company providing Ezviz security camera solutions in Dubai and across UAE. Authorized distributor with professional installation services.",
+      "isPartOf": {
+        "@id": `${canonicalUrl}#webpage`
+      },
+      "inLanguage": "en-US"
+    },
+  ]
+};
+---
+<meta charset="UTF-8" />
+<style is:global>
+  .fade-in {
+    opacity: 0;
+    animation: fadeIn 1s ease-in-out forwards;
+  }
+
+  .slide-up {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: slideUp 0.8s ease-out forwards;
+  }
+  /* Enhanced Help Section */
+ .help-section {
+  position: relative;
+  overflow: hidden;
+  margin-left: 200px;
+  margin-right: 200px;
+  margin-bottom: 150px;
+}
+
+.help-section::before {
+  content: '';
+  position: absolute;
+  right: -80px;
+  top: -80px;
+  width: 256px;
+  height: 256px;
+  border-radius: 50%;
+  background: #3b82f6;
+  opacity: 0.1;
+  animation: float 4s ease-in-out infinite;
+}
+
+.help-section::after {
+  content: '';
+  position: absolute;
+  left: -20px;
+  bottom: -20px;
+  width: 256px;
+  height: 256px;
+  border-radius: 50%;
+  background: #6366f1;
+  opacity: 0.1;
+  animation: float 4s ease-in-out infinite reverse;
+}
+
+
+  .delay-100 {
+    animation-delay: 100ms;
+  }
+  .delay-200 {
+    animation-delay: 200ms;
+  }
+  .delay-300 {
+    animation-delay: 300ms;
+  }
+  .delay-400 {
+    animation-delay: 400ms;
+  }
+  .delay-500 {
+    animation-delay: 500ms;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Button hover effects */
+  .btn-hover {
+    transition: all 0.3s ease;
+    transform: translateY(0);
+  }
+  .btn-hover:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px -10px rgba(0, 0, 0, 0.3);
+  }
+
+  /* Card hover effects */
+  .card-hover {
+    transition: all 0.3s ease;
+  }
+  .card-hover:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  }
+
+  /* Gradient animation for hero */
+  .gradient-bg {
+    background-size: 200% 200%;
+    animation: gradientAnimation 8s ease infinite;
+  }
+
+  @keyframes gradientAnimation {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+</style>
+
+<Layout
+ title={title} 
+  description={description} 
+  structuredData={structuredData}
+  canonical={canonicalUrl.toString()}>
+  <main class="bg-white overflow-x-hidden">
+    <!-- Hero Section -->
+    <section class="relative bg-slate-900 text-white w-full px-0 overflow-hidden">
+      <div class="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 gradient-bg"></div>
+          <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-32">
+    <div class="grid lg:grid-cols-2 gap-12 items-center">
+      <div>
+        <div class="inline-flex items-center px-4 py-2 bg-blue-600/20 border border-blue-500/30 rounded-full text-blue-300 text-sm font-medium mb-6 slide-up">
+          Authorized EZVIZ Distributor - UAE
+        </div>
+        <h1 class="text-4xl lg:text-6xl font-bold leading-tight mb-6 slide-up delay-100">
+          Leading Security 
+          <span class="text-blue-400">Solutions</span> 
+          Provider
+        </h1>
+        <p class="text-xl text-slate-300 leading-relaxed mb-8 max-w-lg slide-up delay-200">
+          Trusted by thousands of businesses and homeowners across the UAE for comprehensive security solutions and professional service excellence.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 slide-up delay-300">
+          <button class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-lg font-semibold transition-colors btn-hover">
+            Request Consultation
+          </button>
+          <button class="border border-slate-600 hover:bg-slate-800 text-white px-8 py-4 rounded-lg font-semibold transition-colors btn-hover">
+            View Products
+          </button>
+        </div>
+      </div>
+      <div class="grid grid-cols-2 gap-6">
+        <div class="bg-slate-800/50 border border-slate-700 rounded-xl p-6 backdrop-blur-sm slide-up delay-100">
+          <div class="text-3xl font-bold text-blue-400 mb-2">10+</div>
+          <div class="text-slate-300">Years Experience</div>
+        </div>
+        <div class="bg-slate-800/50 border border-slate-700 rounded-xl p-6 backdrop-blur-sm slide-up delay-200">
+          <div class="text-3xl font-bold text-blue-400 mb-2">50K+</div>
+          <div class="text-slate-300">Installations</div>
+        </div>
+        <div class="bg-slate-800/50 border border-slate-700 rounded-xl p-6 backdrop-blur-sm slide-up delay-300">
+          <div class="text-3xl font-bold text-blue-400 mb-2">24/7</div>
+          <div class="text-slate-300">Support</div>
+        </div>
+        <div class="bg-slate-800/50 border border-slate-700 rounded-xl p-6 backdrop-blur-sm slide-up delay-400">
+          <div class="text-3xl font-bold text-blue-400 mb-2">UAE</div>
+          <div class="text-slate-300">Nationwide</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section><!-- Mission & Vision Expanded Section -->
+<section class="py-24 bg-gradient-to-b from-blue-50 to-white">
+  <div class="max-w-7xl mx-auto px-6 lg:px-8">
+    <div class="lg:text-center mb-20">
+      <h2 class="text-base font-semibold text-blue-600 tracking-wide uppercase slide-up">
+        Our Core Beliefs
+      </h2>
+      <p class="mt-2 text-3xl font-bold leading-8 tracking-tight text-gray-900 sm:text-4xl slide-up delay-100">
+        Guiding Principles for Security Excellence
+      </p>
+      <div class="mt-6 max-w-2xl lg:mx-auto">
+        <div class="h-1 w-20 bg-blue-600 mx-auto slide-up delay-200"></div>
+      </div>
+    </div>
+
+    <div class="relative bg-white shadow-xl rounded-2xl overflow-hidden slide-up delay-300">
+      <div class="absolute inset-0 bg-gradient-to-r from-blue-600 to-blue-800 opacity-5"></div>
+      <div class="relative px-8 py-12 sm:px-12 sm:py-16 lg:px-16 lg:py-20">
+        
+        <!-- Mission Section -->
+        <div class="mb-20">
+          <div class="flex items-center mb-8">
+            <div class="flex-shrink-0 bg-blue-100 p-4 rounded-lg">
+              <svg class="h-8 w-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+              </svg>
+            </div>
+            <h3 class="ml-4 text-2xl font-bold text-gray-900">Our Mission</h3>
+          </div>
+          <div class="prose prose-lg text-gray-600 max-w-none">
+            <p class="mb-6">
+              At EZVIZ-DUBAI, we are committed to providing our clients with top-tier EZVIZ security solutions that redefine safety and convenience. As a leader in innovative surveillance technology, EZVIZ delivers a wide array of smart home devices tailored to meet the unique demands of our customers.
+            </p>
+            <p>
+              Our extensive product lineup features state-of-the-art security cameras, intelligent alarm systems, video doorbells, and smart locks, all designed to integrate effortlessly into any environment, ensuring comprehensive protection and peace of mind.
+            </p>
+          </div>
+        </div>
+
+        <!-- Divider -->
+        <div class="border-t border-gray-200 my-12"></div>
+
+        <!-- Vision Section -->
+        <div class="mt-12">
+          <div class="flex items-center mb-8">
+            <div class="flex-shrink-0 bg-blue-100 p-4 rounded-lg">
+              <svg class="h-8 w-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+              </svg>
+            </div>
+            <h3 class="ml-4 text-2xl font-bold text-gray-900">Our Vision</h3>
+          </div>
+          <div class="prose prose-lg text-gray-600 max-w-none">
+            <p class="mb-6">
+              To establish ourselves as the premier EZVIZ distributor in the Middle East, we strive to redefine excellence through cutting-edge innovation, unmatched customer support, and trusted security solutions.
+            </p>
+            <p>
+              Our mission is to build safer communities by combining advanced technology with user-focused services, ensuring security is within reach for everyone.
+            </p>
+          </div>
+        </div>
+
+        <!-- Stats Section -->
+      </div>
+    </div>
+  </div>
+</section>
+    <!-- Company Overview -->
+    <section class="py-20 lg:py-28">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid lg:grid-cols-2 gap-16 items-center">
+          <div>
+            <div class="text-blue-600 font-semibold text-sm uppercase tracking-wide mb-4 slide-up">
+              About EZVIZ Dubai
+            </div>
+            <h2 class="text-3xl lg:text-4xl font-bold text-slate-900 mb-6 slide-up delay-100">
+              Authorized EZVIZ Distributor Serving the UAE Since 2012
+            </h2>
+            <p class="text-lg text-slate-600 leading-relaxed mb-6 slide-up delay-200">
+              As the official EZVIZ distributor for Dubai and the UAE, we specialize in delivering enterprise-grade security solutions that protect businesses, homes, and critical infrastructure across the region.
+            </p>
+            <p class="text-lg text-slate-600 leading-relaxed mb-8 slide-up delay-300">
+              Our comprehensive portfolio includes advanced surveillance systems, intelligent monitoring solutions, and professional installation services backed by industry-leading warranties and support.
+            </p>
+            
+            <!-- Key Metrics -->
+            <div class="grid grid-cols-3 gap-8 pt-8 border-t border-slate-200 slide-up delay-400">
+              <div class="text-center">
+                <div class="text-2xl font-bold text-slate-900 mb-1">2012</div>
+                <div class="text-sm text-slate-600">Established</div>
+              </div>
+              <div class="text-center">
+                <div class="text-2xl font-bold text-slate-900 mb-1">500+</div>
+                <div class="text-sm text-slate-600">Partners</div>
+              </div>
+              <div class="text-center">
+                <div class="text-2xl font-bold text-slate-900 mb-1">7</div>
+                <div class="text-sm text-slate-600">Emirates</div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Professional Image Placeholder -->
+          <div class="relative fade-in delay-500">
+           
+              <!-- Replace the src below with your actual image path -->
+              <img 
+                src="/images/Ezvismallbanner.png" 
+                alt="EZVIZ Security Solutions" 
+                class="object-cover w-full h-full rounded-2xl"
+              />
+            
+            <div class="text-center mt-4">
+              <p class="text-slate-500 font-medium">EZVIZ Security Solutions</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Services -->
+    <section class="py-20 lg:py-28 bg-slate-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+          <div class="text-blue-600 font-semibold text-sm uppercase tracking-wide mb-4 slide-up">
+            Our Services
+          </div>
+          <h2 class="text-3xl lg:text-4xl font-bold text-slate-900 mb-6 slide-up delay-100">
+            Comprehensive Security Solutions
+          </h2>
+          <p class="text-xl text-slate-600 max-w-3xl mx-auto slide-up delay-200">
+            From initial consultation to ongoing maintenance, we provide end-to-end security solutions tailored to your specific requirements.
+          </p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8">
+          <!-- Residential Security -->
+          <div class="bg-white rounded-xl p-8 shadow-sm border border-slate-200 hover:shadow-md transition-all card-hover slide-up delay-100">
+            <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-6">
+              <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-semibold text-slate-900 mb-4">Residential Security</h3>
+            <p class="text-slate-600 mb-6 leading-relaxed">
+              Complete home protection with smart cameras, intelligent doorbells, and integrated monitoring systems.
+            </p>
+            <ul class="space-y-3">
+              <li class="flex items-center text-slate-600">
+                <svg class="w-4 h-4 text-green-500 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                4K Indoor & Outdoor Cameras
+              </li>
+              <li class="flex items-center text-slate-600">
+                <svg class="w-4 h-4 text-green-500 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                Smart Video Doorbells
+              </li>
+              <li class="flex items-center text-slate-600">
+                <svg class="w-4 h-4 text-green-500 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                Mobile App Integration
+              </li>
+              <li class="flex items-center text-slate-600">
+                <svg class="w-4 h-4 text-green-500 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                Cloud Storage Solutions
+              </li>
+            </ul>
+          </div>
+
+          <!-- Commercial Solutions -->
+          <div class="bg-white rounded-xl p-8 shadow-sm border border-slate-200 hover:shadow-md transition-all card-hover slide-up delay-200">
+            <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-6">
+              <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-semibold text-slate-900 mb-4">Commercial Solutions</h3>
+            <p class="text-slate-600 mb-6 leading-relaxed">
+              Enterprise-grade security systems designed for businesses, offices, and commercial properties.
+            </p>
+            <ul class="space-y-3">
+              <li class="flex items-center text-slate-600">
+                <svg class="w-4 h-4 text-green-500 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                Multi-Channel NVR Systems
+              </li>
+              <li class="flex items-center text-slate-600">
+                <svg class="w-4 h-4 text-green-500 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                Professional Installation
+              </li>
+              <li class="flex items-center text-slate-600">
+                <svg class="w-4 h-4 text-green-500 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                Remote Monitoring
+              </li>
+              <li class="flex items-center text-slate-600">
+                <svg class="w-4 h-4 text-green-500 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                Scalable Architecture
+              </li>
+            </ul>
+          </div>
+
+          <!-- Support & Maintenance -->
+          <div class="bg-white rounded-xl p-8 shadow-sm border border-slate-200 hover:shadow-md transition-all card-hover slide-up delay-300">
+            <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-6">
+              <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-semibold text-slate-900 mb-4">Support & Maintenance</h3>
+            <p class="text-slate-600 mb-6 leading-relaxed">
+              Comprehensive after-sales support with certified technicians and genuine EZVIZ components.
+            </p>
+            <ul class="space-y-3">
+              <li class="flex items-center text-slate-600">
+                <svg class="w-4 h-4 text-green-500 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                24/7 Technical Support
+              </li>
+              <li class="flex items-center text-slate-600">
+                <svg class="w-4 h-4 text-green-500 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                On-site Service Calls
+              </li>
+              <li class="flex items-center text-slate-600">
+                <svg class="w-4 h-4 text-green-500 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                Warranty Management
+              </li>
+              <li class="flex items-center text-slate-600">
+                <svg class="w-4 h-4 text-green-500 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                System Updates
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Why Choose Us -->
+    <section class="py-20 lg:py-28">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+          <div class="text-blue-600 font-semibold text-sm uppercase tracking-wide mb-4 slide-up">
+            Why Choose Us
+          </div>
+          <h2 class="text-3xl lg:text-4xl font-bold text-slate-900 mb-6 slide-up delay-100">
+            Industry-Leading Expertise & Service
+          </h2>
+          <p class="text-xl text-slate-600 max-w-3xl mx-auto slide-up delay-200">
+            Our commitment to excellence and comprehensive security solutions has made us the preferred EZVIZ partner across the UAE.
+          </p>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div class="text-center fade-in delay-100">
+            <div class="w-16 h-16 bg-blue-100 rounded-xl flex items-center justify-center mx-auto mb-6">
+              <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+            </div>
+            <h3 class="text-lg font-semibold text-slate-900 mb-3">Authorized Partner</h3>
+            <p class="text-slate-600 leading-relaxed">
+              Official EZVIZ distributor with direct manufacturer support and genuine product warranties.
+            </p>
+          </div>
+
+          <div class="text-center fade-in delay-200">
+            <div class="w-16 h-16 bg-blue-100 rounded-xl flex items-center justify-center mx-auto mb-6">
+              <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+              </svg>
+            </div>
+            <h3 class="text-lg font-semibold text-slate-900 mb-3">Expert Installation</h3>
+            <p class="text-slate-600 leading-relaxed">
+              Certified technicians with extensive experience in security system deployment and integration.
+            </p>
+          </div>
+
+          <div class="text-center fade-in delay-300">
+            <div class="w-16 h-16 bg-blue-100 rounded-xl flex items-center justify-center mx-auto mb-6">
+              <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
+              </svg>
+            </div>
+            <h3 class="text-lg font-semibold text-slate-900 mb-3">Premium Quality</h3>
+            <p class="text-slate-600 leading-relaxed">
+              Enterprise-grade equipment engineered for reliability in the UAE's demanding climate conditions.
+            </p>
+          </div>
+
+          <div class="text-center fade-in delay-400">
+            <div class="w-16 h-16 bg-blue-100 rounded-xl flex items-center justify-center mx-auto mb-6">
+              <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+              </svg>
+            </div>
+            <h3 class="text-lg font-semibold text-slate-900 mb-3">Smart Integration</h3>
+            <p class="text-slate-600 leading-relaxed">
+              Advanced AI-powered features with seamless mobile app integration and cloud connectivity.
+            </p>
+          </div>
+
+          <div class="text-center fade-in delay-500">
+            <div class="w-16 h-16 bg-blue-100 rounded-xl flex items-center justify-center mx-auto mb-6">
+              <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192L5.636 18.364M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"></path>
+              </svg>
+            </div>
+            <h3 class="text-lg font-semibold text-slate-900 mb-3">Full-Service Support</h3>
+            <p class="text-slate-600 leading-relaxed">
+              End-to-end service from initial consultation through installation and ongoing maintenance.
+            </p>
+          </div>
+
+          <div class="text-center fade-in delay-600">
+            <div class="w-16 h-16 bg-blue-100 rounded-xl flex items-center justify-center mx-auto mb-6">
+              <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path>
+              </svg>
+            </div>
+            <h3 class="text-lg font-semibold text-slate-900 mb-3">Proven Track Record</h3>
+            <p class="text-slate-600 leading-relaxed">
+              Thousands of successful installations across residential and commercial properties in the UAE.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+ <section class="help-section bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-4 sm:p-8 md:p-10 border border-gray-200 overflow-hidden relative mx-2 sm:mx-4 md:mx-auto">
+  <div class="max-w-4xl mx-auto px-2 sm:px-4 lg:px-8 text-center relative z-10 transition-all duration-1000 ease-[cubic-bezier(0.2,0,0,1)] transform [&.active]:opacity-100 [&.active]:translate-y-0 opacity-0 translate-y-8">
+    <h2 class="text-2xl sm:text-3xl font-semibold text-gray-900 mb-4 transition-all duration-700 ease-[cubic-bezier(0.2,0,0,1)] delay-100 [.active_&]:opacity-100 [.active_&]:translate-y-0 opacity-0 translate-y-5">
+      Ready to Secure Your Property?
+    </h2>
+    <div class="w-12 sm:w-16 h-1 bg-blue-600 mx-auto mb-6 transition-all duration-800 ease-[cubic-bezier(0.2,0,0,1)] delay-200 [.active_&]:opacity-100 [.active_&]:scale-x-100 opacity-0 scale-x-0 origin-center"></div>
+    <p class="text-gray-600 mb-8 leading-relaxed transition-all duration-700 ease-[cubic-bezier(0.2,0,0,1)] delay-300 [.active_&]:opacity-100 [.active_&]:translate-y-0 opacity-0 translate-y-5 text-base sm:text-lg">
+      Contact our security experts for a comprehensive consultation and customized EZVIZ solution tailored to your specific requirements.
+    </p>
+    <div class="flex flex-col sm:flex-row gap-4 justify-center transition-all duration-700 ease-[cubic-bezier(0.2,0,0,1)] delay-400 [.active_&]:opacity-100 [.active_&]:translate-y-0 opacity-0 translate-y-5">
+      <a
+        href="/contact"
+        class="animated-button inline-flex items-center justify-center rounded-lg bg-blue-600 px-4 sm:px-6 py-3 text-base font-semibold text-white shadow-md hover:bg-blue-700 transition-all duration-400 hover:shadow-lg transform hover:-translate-y-1 w-full sm:w-auto"
+      >
+        Schedule Consultation
+        <svg class="ml-2 h-5 w-5 transition-transform duration-400 group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M13.75 6.75L19.25 12L13.75 17.25" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+          <path d="M19 12H4.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+      </a>
+      <a
+        href="tel:+971 55 422 1947"
+        class="animated-button inline-flex items-center justify-center rounded-lg border border-gray-300 bg-white px-4 sm:px-6 py-3 text-base font-semibold text-gray-900 hover:bg-gray-50 transition-all duration-400 hover:shadow-md transform hover:-translate-y-1 w-full sm:w-auto"
+      >
+        Call +971 55 422 1947
+      </a>
+    </div>
+    
+ 
+</section>
+
+<style is:global>
+/* Responsive fix for help-section */
+.help-section {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  margin-bottom: 80px;
+}
+@media (min-width: 640px) {
+  .help-section {
+    margin-left: 1rem !important;
+    margin-right: 1rem !important;
+  }
+}
+@media (min-width: 768px) {
+  .help-section {
+    margin-left: 100px !important;
+    margin-right: 100px !important;
+  }
+}
+@media (min-width: 1024px) {
+  .help-section {
+    margin-left: 200px !important;
+    margin-right: 200px !important;
+  }
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const helpSection = document.querySelector('.help-section > div');
+  
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.classList.add('active');
+        }, 50); // Small delay to ensure proper triggering
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {
+    threshold: 0.1,
+    rootMargin: '0px 0px -100px 0px'
+  });
+  
+  if (helpSection) {
+    observer.observe(helpSection);
+  }
+});
+</script>
+ <Whatsapp client:load />
+  </main>
+</Layout>
+
+<!-- Intersection Observer for scroll animations -->
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', () => {
+    const animateOnScroll = () => {
+      const elements = document.querySelectorAll('.slide-up, .fade-in');
+      
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.style.animationPlayState = 'running';
+            observer.unobserve(entry.target);
+          }
+        });
+      }, {
+        threshold: 0.1
+      });
+
+      elements.forEach(element => {
+        observer.observe(element);
+        // Start with animations paused
+        element.style.animationPlayState = 'paused';
+      });
+    };
+
+    animateOnScroll();
+  });
+  
+</script>
+
+<script>
+  // Enhanced scroll-triggered animations
+  document.addEventListener('DOMContentLoaded', function() {
+    const animateElements = document.querySelectorAll('.animate-on-scroll');
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animated');
+        }
+      });
+    }, {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    });
+
+    animateElements.forEach(el => observer.observe(el));
+
+    // Add staggered animation delays
+    const categoryItems = document.querySelectorAll('.category-item');
+    categoryItems.forEach((item, index) => {
+      (item as HTMLElement).style.animationDelay = `${0.1 + index * 0.2}s`;
+    });
+
+    // Enhanced button hover effects
+    const buttons = document.querySelectorAll('.animated-button');
+    buttons.forEach(button => {
+      button.addEventListener('mouseenter', function() {
+        this.style.transform = 'translateY(-3px) scale(1.02)';
+      });
+      
+      button.addEventListener('mouseleave', function() {
+        this.style.transform = 'translateY(0) scale(1)';
+      });
+    });
+
+    // Parallax effect for hero background
+    window.addEventListener('scroll', function() {
+      const scrolled = window.pageYOffset;
+      const parallax = document.querySelector('.hero-banner::before');
+      if (parallax) {
+        const speed = scrolled * 0.5;
+        (parallax as HTMLElement).style.transform = `translateY(${speed}px)`;
+      }
+    });
+  });
+</script>

@@ -1,0 +1,129 @@
+---
+// EzvizDubai.astro
+---
+
+<main class="pb-16 md:pb-20">
+  
+
+  <section class="py-12 bg-gray-50">
+    <div class="container mx-auto px-4">
+      <div class="flex flex-col md:flex-row gap-8 items-center">
+        <div class="w-full md:w-1/2 flex justify-center items-center">
+          <div class="w-full md:w-1/2 flex justify-center items-center">
+            <div class="w-full flex justify-center items-center">
+              <div class="relative max-w-[500px] mx-auto group">
+                <!-- Background Image (Centered) -->
+                <div class="flex justify-center">
+                  <img
+                    src="/images/Ezviz Front.png"
+                    alt="EZVIZ Security Cameras"
+                    class="rounded-lg shadow-md w-[85%] h-auto"
+                  />
+                </div>
+
+                <!-- Overlapping Image (Left Side, Slides In) -->
+                <img
+                  src="/images/Ezvizoverfront.png"
+                  alt="EZVIZ Camera Detail"
+                  class="absolute left-[-25%] top-1/2 -translate-y-1/2 w-[55%] h-auto max-h-[220px] rounded-lg shadow-md transition-all duration-500 ease-out transform -translate-x-full opacity-0"
+                  data-transition
+                />
+
+                <script>
+                  document.addEventListener("DOMContentLoaded", () => {
+                    const overlappingImg =
+                      document.querySelector("[data-transition]");
+
+                    const observer = new IntersectionObserver(
+                      (entries) => {
+                        entries.forEach((entry) => {
+                          if (entry.isIntersecting) {
+                            entry.target.classList.remove(
+                              "-translate-x-full",
+                              "opacity-0"
+                            );
+                            entry.target.classList.add(
+                              "translate-x-0",
+                              "opacity-100"
+                            );
+                          }
+                        });
+                      },
+                      { threshold: 0.1 }
+                    ); // Trigger when 10% visible
+
+                    observer.observe(overlappingImg);
+                  });
+                </script>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="w-full md:w-1/2">
+          <h2
+            class="text-blue-500 text-sm font-medium tracking-wider mb-4 transform transition-all duration-500 ease-out -translate-x-10 opacity-0"
+            id="about-heading"
+          >
+            <span class="mr-2"> A B O U T</span> U S
+          </h2>
+
+          <h3
+            class="text-3xl font-semibold text-gray-800 mb-6 transform transition-all duration-700 ease-out -translate-x-10 opacity-0"
+            id="about-title"
+          >
+            Authorized EZVIZ Distributor in Dubai
+          </h3>
+
+          <p
+            class="text-gray-600 leading-relaxed mb-6 transform transition-all duration-900 ease-out -translate-x-10 opacity-0"
+            id="about-p1"
+          >
+            At Ezviz-Dubai, we are dedicated to delivering state-of-the-art
+            EZVIZ security solutions, customized for homes and businesses
+            throughout Dubai. As the premier distributor of EZVIZ products in
+            the region, we provide a wide array of advanced security cameras and
+            systems, crafted to ensure safety and peace of mind.
+          </p>
+
+          <p
+            class="text-gray-600 leading-relaxed transform transition-all duration-1100 ease-out -translate-x-10 opacity-0"
+            id="about-p2"
+          >
+            Our skilled team is focused on offering exceptional customer service
+            and technical support, guaranteeing that every installation adheres
+            to the highest standards of quality and reliability. Whether you
+            need cutting-edge video surveillance or smart home devices, EZVIZ is
+            your go-to partner for innovative and dependable security solutions.
+          </p>
+        </div>
+
+        <script>
+          document.addEventListener("DOMContentLoaded", function () {
+            const elements = [
+              document.getElementById("about-heading"),
+              document.getElementById("about-title"),
+              document.getElementById("about-p1"),
+              document.getElementById("about-p2"),
+            ];
+
+            const observer = new IntersectionObserver(
+              (entries) => {
+                entries.forEach((entry) => {
+                  if (entry.isIntersecting) {
+                    entry.target.classList.add("translate-x-0", "opacity-100");
+                  }
+                });
+              },
+              { threshold: 0.1 }
+            );
+
+            elements.forEach((el) => {
+              if (el) observer.observe(el);
+            });
+          });
+        </script>
+      </div>
+    </div>
+  </section>
+</main>
